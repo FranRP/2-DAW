@@ -1,0 +1,4 @@
+Relacion 1 - 4
+Relacion 2 - 3 y 4
+Relacion 3 - Geometrizer(3), 4
+Relacion 4 - 1 y 2
