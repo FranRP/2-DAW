@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>  
+<meta charset="UTF-8">
+</head>
+<body>
+<script type="text/javascript">
+	var contador = 60
+	
+	function prueba() {
+		contador--;
+		document.write(contador);
+		if (contador > 0) {
+			setTimeout(prueba,1000);
+			document.close();
+			}
+		
+	}
+	
+	prueba();
+	
+</script>
+</body>
+</html> 

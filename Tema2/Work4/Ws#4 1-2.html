@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>  
+<meta charset="UTF-8">
+</head>
+<body>
+<script type="text/javascript">
+	
+	function propiedadesnavegador(){
+		var lista = ['appName','appVersion','battery','cookieEnabled','geolocation'];
+		document.write('<table>');
+
+		for (elem of lista) {
+			document.write('<tr>');
+			document.write('<td>'+elem+'</td>');
+			document.write('<td>'+navigator[elem]+'</td>');
+
+			document.write('</tr>');
+		}
+		document.write('</table>');
+			
+	}
+
+	//propiedadesnavegador();
+	
+	function propiedadesscreen(){
+		var lista = ['availTop','availLeft','availHeight','availWidth','colorDepth','orientation','height'];
+		document.write('<table>');
+
+		for (elem of lista) {
+			document.write('<tr>');
+			document.write('<td>'+elem+'</td>');
+			document.write('<td>'+screen[elem]+'</td>');
+
+			document.write('</tr>');
+		}
+		document.write('</table>');
+			
+	}
+	
+	propiedadesscreen();
+	
+</script>
+</body>
+</html> 

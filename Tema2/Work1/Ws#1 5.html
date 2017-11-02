@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>  
+<meta charset="UTF-8">
+</head>
+<body>
+<script type="text/javascript">
+
+	var reloj = new Date();
+	function cambioreloj() {
+		document.close();
+		var hora = reloj.getHours();
+		var minutos = reloj.getMinutes();
+		var segundos = reloj.getSeconds();
+		
+		document.write(hora+':'+minutos+':'+segundos);
+		setTimeout(cambioreloj,1000);
+		reloj = new Date();
+		}
+	
+	
+</script>
+</body>
+</html> 

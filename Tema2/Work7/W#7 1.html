@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>  
+<meta charset="UTF-8">
+</head>
+<body>
+<script type="text/javascript">
+	
+	function activoono() {
+		if ("geolocation" in navigator) {
+			document.write('Activo');
+		} else {
+			document.write('Desactivado');
+		}
+	}
+	
+	//activoono();
+
+	function ejercicio2() {
+		if ("geolocation" in navigator) {
+			navigator.geolocation.getCurrentPosition(ejercicio22);
+		} else {
+			document.write('Desactivado');
+		}
+	}
+	
+	function ejercicio22(position) {
+		alert('Latitud '+position.coords.latitude+'  Longitud'+position.coords.longitude);
+	}
+		
+	
+	//ejercicio2();
+	
+	function ejercicio3() {
+		if ("geolocation" in navigator) {
+			navigator.geolocation.getCurrentPosition(ejercicio22,error);
+		} else {
+			document.write('Desactivado');
+		}
+	}
+	
+	function ejercicio33(position) {
+		alert('Latitud '+position.coords.latitude+'  Longitud'+position.coords.longitude);
+	}
+	
+	function error(err) {
+		console.warn('Error'+err.code+' con mensaje: '+err.message);
+	}
+	
+	
+	//ejercicio3();
+	
+	function ejercicionumero4() {
+		if ("geolocation" in navigator) {
+			navigator.geolocation.getCurrentPosition(ejercicionumero44);
+			
+		} else {
+			document.write('Desactivado');
+		}
+	}
+	
+	function ejercicionumero44(position) {
+		document.write('Latitud '+position.coords.latitude+'  Longitud'+position.coords.longitude);
+		document.write('<br>');
+	}
+
+	//setInterval(ejercicionumero4,2000);
+	
+//----------------------------------------------------------------------------
+
+
+
+/*	
+	function almacen(position) {
+		//const inicioLat = position.coords.latitude;
+		//const inicioLong = position.coords.longitude;
+		var a = position.coords;
+		initMap();
+		console.log(a);
+		console.log('prueba');
+	}
+
+	
+	function distanciaF() {
+		if ("geolocation" in navigator) {
+			navigator.geolocation.getCurrentPosition(distanciaFF);
+		} else {
+			document.write('Desactivado');
+		}
+		
+	}
+	
+	function distanciaFF(position) {
+		//var actualLat = position.coords.latitude;
+		//var actualLong = position.coords.longitude;
+		var x = position.coords;
+		console.log(x);
+		distanciaI();
+	}
+
+	//setInterval(calcularDistancia),2000);
+*/
+	
+	var puntoOrigen;
+	var esprimerpunto = true;
+	var ptoActual;
+	var distancia;
+	
+	function initMap() {
+		if ("geolocation" in navigator) {
+			return navigator.geolocation.getCurrentPosition(fundist);
+		} else {
+			document.write('Desactivado');
+		}
+	}
+	
+	function fundist(position) {
+		if (esprimerpunto) {
+			puntoOrigen = {lat: position.coords.latitude, lng: position.coords.longitude};
+			esprimerpunto = false; 
+		} else {
+			ptoActual = {lat: position.coords.latitude, lng: position.coords.longitude};
+			distancia = google.maps.geometry.spherical.computeDistanceBetween(ptoActual, puntoOrigen);
+			console.log(distancia);
+		}
+	}
+
+	
+	function repetir() {
+		setInterval(initMap,3000);
+	}
+
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCs8GeLs70vepIkA2ZgoerHjkJKKUduFBE&libraries=geometry&callback=repetir"
+        async defer></script>
+</body>
+</html> 

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>  
+<meta charset="UTF-8">
+</head>
+<body>
+<script type="text/javascript">
+	
+	document.write(Math.random());
+	document.write('<br>');
+	
+	function aleatorio(max, min) {
+		return Math.floor(Math.random() *(max -min)) + min;
+	}
+
+
+	function aleatorio2() {
+	var max = parseInt(prompt('Dime un máximo'));
+	var min = parseInt(prompt('Dime un minimo'));
+	document.write(Math.floor(Math.random() *(max -min)) + min);
+	}
+	
+	aleatorio2();
+
+</script>
+</body>
+</html> 

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>  
+<meta charset="UTF-8">
+<title>Titulo sin modificar</title>
+</head>
+<body>
+
+	<img src='imagen0.jpg' id="imagen1" width=100>
+	<img src='imagen1.jpg' id="imagen2" width=100>
+	<img src='imagen2.jpg' id="imagen3" width=100>
+	<br>
+	<a id="prueba" href="#" onclick="return contarImagenes()">Pincha aquí para contar imágenes</a>
+	<br>
+	<a id="prueba2" href="#" onclick="return idprimeraimagen()">Pincha aquí saber la id de la primera imagen</a>
+	<br>
+	<a id="prueba3" href="#" onclick="return contarenlaces()">Pincha aquí saber el numero de enlaces</a>
+	<br>
+	<a id="prueba4" href="#" onclick="return cambiarTitulo()">Pincha aquí cambiar el titulo</a>
+<script type="text/javascript">
+	
+		//Ejercicio 2c
+		function contarImagenes() {
+			var numero = document.images;
+			console.log(numero);
+			var contar = numero.length;
+			alert('Hay un total de '+contar+' imagenes');
+		}
+		
+		//Ejercicio 2d
+		function idprimeraimagen() {
+			var numero = document.images;
+			var valor = numero[0].id;
+			alert('El ID de la primera imagen es '+valor);
+			
+		}
+		
+		//Ejercicio 2e
+		function contarenlaces() {
+			var enlaces = document.links;
+			console.log(enlaces);
+			var contador = enlaces.length;
+			alert('Hay un total de '+contador+' enlaces');
+		}
+			
+		//Ejercicio 2f
+		function cambiarTitulo() {
+			var titulo = prompt('Dime un nuevo titulo de página');
+			document.title = titulo;
+		}	
+		
+	
+</script>
+</body>
+</html> 

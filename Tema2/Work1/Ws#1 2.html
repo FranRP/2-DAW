@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>  
+<meta charset="UTF-8">
+</head>
+<body>
+<script type="text/javascript">
+	var fechaHoy = new Date();
+	var fecha85 = new Date();
+	var fecha187 = new Date();
+	var fechaResto = new Date();
+	fecha187.setDate(fechaHoy.getDate() - 187);
+	fecha85.setDate(fechaHoy.getDate() + 85);
+	//fechaResto.setDate(fecha85.getDate() - fecha187.getDate());
+	//fechaResto.setDate(fechaHoy.getDate() - fecha85.getDate());
+	document.write('La fecha de hoy es: '+fechaHoy.getDate());
+	document.write('<br>');
+	document.write('La fecha85 es: '+ fecha85);
+	document.write('<br>');
+	document.write('La fecha187 es: '+ fecha187);
+	document.write('<br>');
+	fecha85.setFullYear(fechaHoy.getFullYear() + 2);
+	document.write(fecha85);
+	document.write('<br>');
+	fecha187.setHours(fecha187.getHours() - 24);
+	document.write(fecha187);
+	document.write('<br>');
+	document.write(fechaResto);
+	
+</script>
+</body>
+</html> 

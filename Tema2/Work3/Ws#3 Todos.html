@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>  
+<meta charset="UTF-8">
+</head>
+<body>
+<script type="text/javascript">
+							
+							//EJERCICIO 1
+					
+	function invierteCadena(cad_arg) {
+		var longitud = cad_arg.length;
+		var palabrainvertida = '';
+		for (i = longitud - 1; i >= 0; i--) {
+			palabrainvertida += cad_arg[i];
+		}
+		return palabrainvertida;
+	}
+
+	//invierteCadena('pablo es guapo');
+		
+		
+	function inviertePalabras(cad_arg) {
+		var lista = cad_arg.split(' ');
+		for(palabra in lista) {
+			document.write(invierteCadena(lista[palabra]+' '));
+			}
+		}
+		
+	//inviertePalabras('pablo clavo un clavito');
+		
+	
+	function encuentraPalabrasMasLarga(cad_arg) {
+		var palabralarga = '';
+		var cadena = cad_arg.split(' ');
+		var numero;
+		var longitud = cadena.length;
+		for (i = 0; i < longitud; i++) {
+			console.log(cadena[i]);
+			numero = cadena[i].length;
+			if (palabralarga.length < numero) {
+				palabralarga = cadena[i];
+			}
+		}
+		document.write(palabralarga);
+	}
+	
+	//encuentraPalabrasMasLarga('si o que sapesapesape dgjksdhgksjhgsdf');
+	
+	
+	function filtraPalabrasMasLargas(cad_arg,i) {
+		var cadena = cad_arg.split(' ');
+		var lista = [];
+		for (elem of cadena) {
+			if (elem.length > i) {
+				lista.push(elem);
+				console.log(lista);
+				}
+			}
+		}
+			
+	//filtraPalabrasMasLargas('hola buenas tardes me dos uno',5);
+	
+	
+	function cadenaBienFormada(cad_arg) {
+		var cadenanueva = cad_arg[0].toUpperCase() + cad_arg.slice(1,cad_arg.length);
+		return cadenanueva;
+	}
+	
+	//cadenaBienFormada('hola buenas tardes');
+	
+	
+	
+								//EJERCICIO 2
+								
+	function comprobarmayus(cad) {
+		if (cad == cad.toUpperCase()){
+			document.write('Cadena solo formada por mayusculas');
+		}
+		else if (cad == cad.toLowerCase()){
+			document.write('Cadena solo formada por minuscula');
+		}	
+		else{
+			document.write('La cadena tiene mayúsculas y minúsculas');
+		}
+	}
+
+	//cadenaFormada('Pablo es el mejor');
+		
+	
+	function palindromo(cadena) {
+		cadenasinespacios = cadena.split(' ');
+		todojunto = '';
+		for (elem of cadenasinespacios) {
+			todojunto += elem;
+	}
+	
+		if (todojunto == invierteCadena(todojunto)) {
+			alert('Es un palindromo');
+		} else {
+			alert('No es un palindromo');
+		}
+}
+
+	//palindromo('someto votemos');
+	
+	function tabla() {
+		var palabra = prompt('Dame una palabra, solo una');
+		var longitud = palabra.length;
+		var inversa = invierteCadena(palabra);
+		document.write('<table>');
+		for (fila = 0; fila < longitud; fila++) {
+			document.write('<tr>');
+			for (columna = 0; columna < longitud; columna++) {
+				if (fila == 0) {
+					document.write('<td>'+palabra[columna]+'</td>');
+				
+				} else if (fila == longitud - 1){
+					document.write('<td>'+inversa[columna]+'</td>');
+				
+				} else if (fila < longitud - 1) {
+					if (columna == 0) {
+						document.write('<td>'+palabra[fila]+'</td>');
+						
+					} else if (columna == longitud - 1) {
+						document.write('<td>'+inversa[fila]+'</td>');
+					
+					} else {
+						document.write('<td>&nbsp</td>');
+					}
+					
+				}
+			
+			
+			}
+			
+		}
+	}
+				
+
+	tabla();
+	
+		
+</script>
+</body>
+</html> 

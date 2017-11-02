@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>  
+<meta charset="UTF-8">
+</head>
+<body>
+<script type="text/javascript">
+	
+		function tabla(a,b,c) {
+		document.write('<table>');
+		for (i = 0; i < 20; i++) {
+		document.write("<tr bgcolor= 'white'>");	
+		for (numero = 0; numero < 2; numero++) {
+			if (numero % 2 != 0) {
+				document.write('<td>'+Math.sin(i)+'</td>');
+			
+			} else {
+				document.write('<td>'+ i + '</td>');
+				}
+		}
+	}
+	document.write("</tr>");
+	document.write("</table>");
+}
+
+	tabla();
+
+</script>
+</body>
+</html> 
