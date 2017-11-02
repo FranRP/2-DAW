@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" id="nick" onblur="crearCookie()" name="" value="">
+
+  <script type="text/javascript">
+
+  var booleano = false;
+
+    function crearCookie() {
+      var nombre = document.getElementById('nick').value;
+      console.log(nombre);
+      if (booleano == false) {
+        document.cookie = "username="+nombre+"; mag-age=10; path=/";
+        alert('Es tu primera vez, y se ha guardado la cookie');
+        booleano = true;
+      } else {
+        alert('Hola '+nombre+' te recuerdo');
+      }
+    }
+
+
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <script type="text/javascript">
+
+    //Ejercicios 1,2,4,5,9,10
+    document.write('<p id="coord"></p>')
+
+    window.onmousemove = function (e){
+    var x = e.clientX;
+    var y = window.event.clientY;
+    document.getElementById('coord').innerHTML = x+'-'+y;
+}
+
+
+
+  </script>
+</body>
+</html>

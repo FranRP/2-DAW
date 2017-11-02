@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ejercicio 1</title>
+</head>
+
+<body>
+    <button onclick="aumentarFuente()" type="button" name="grande">Fuente +</button>
+    <button onclick="fuenteDefecto()" type="button" name="por_defecto">Fuente por defecto</button>
+    <button onclick="disminuirFuente()" type="button" name="pequeño">Fuente -</button>
+    <button onclick="alineacionIzquierda()" type="button" name="izquierda">Izquierda</button>
+    <button onclick="alineacionJustificada()" type="button" name="por_defecto">Justificada</button>
+    <button onclick="alineacionCentrada()" type="button" name="centrada">Centrada</button>
+    <button onclick="alineacionDerecha()" type="button" name="derecha">Derecha</button>
+  </center>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+  <script type="text/javascript">
+
+
+  var parrafo = document.getElementsByTagName('p');
+  var tamaños = ['xx-small' ,'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large'];
+
+  function aumentarFuente() {
+      for (var i = 0; i < parrafo.length; i++) {
+        if (parrafo[i].style.fontSize == "")
+          parrafo[i].style.fontSize = tamaños[4];
+        else
+          parrafo[i].style.fontSize = tamaños[tamaños.indexOf(parrafo[i].style.fontSize) + 1];
+      }
+  }
+  function disminuirFuente(){
+    for (var i = 0; i < parrafo.length; i++) {
+      if (parrafo[i].style.fontSize == "")
+        parrafo[i].style.fontSize = tamaños[2];
+      else
+        parrafo[i].style.fontSize = tamaños[tamaños.indexOf(parrafo[i].style.fontSize) - 1];
+    }
+  }
+  function fuenteDefecto(){
+    for (var i = 0; i < parrafo.length; i++) {
+      parrafo[i].style.fontSize = "medium";
+    }
+  }
+  function alineacionIzquierda(){
+    for (var i = 0; i < parrafo.length; i++) {
+      parrafo[i].style.textAlign = "left";
+    }
+  }
+  function alineacionDerecha(){
+    for (var i = 0; i < parrafo.length; i++) {
+      parrafo[i].style.textAlign = "right";
+    }
+  }
+  function alineacionJustificada(){
+    for (var i = 0; i < parrafo.length; i++) {
+      parrafo[i].style.textAlign = "justify";
+    }
+  }
+  function alineacionCentrada(){
+    for (var i = 0; i < parrafo.length; i++) {
+      parrafo[i].style.textAlign = "center";
+    }
+  }
+  </script>
+
+</body>
+
+</html>

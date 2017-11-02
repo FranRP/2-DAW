@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <form action="/my-handling-form-page" method="post">
+    <div>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" onblur="comprobarNombre()"/>
+        <p id="uno" style="visibility:hidden; color:red">Comprueba que el nombre no contiene carácteres raros, números, y comienza por mayúscula</p>
+    </div>
+    <br>
+    <div>
+        <label for="apellido">Apellidos:</label>
+        <input type="text" id="apellido" onblur="comprobarApellido()"/>
+        <p id="dos" style="visibility:hidden; color:red">Comprueba que el apellido no contiene carácteres raros, números, y comienza por mayúscula</p>
+    </div>
+    <br>
+    <div>
+        <label for="mail">E-mail:</label>
+        <input type="email" id="mail" onblur="comprobarCorreo()"/>
+        <p id="tres" style="visibility:hidden; color:red">Comprueba que la dirección de correo sea válida</p>
+    </div>
+    <br>
+    <div>
+        <label for="telefono">Teléfono:</label>
+        <input id="telefono" onblur="comprobarTlf()"></input>
+        <p id="cuatro" style="visibility:hidden; color:red">Comprueba que el teléfono sea válido, y de España</p>
+    </div>
+    <br>
+    <div>
+        <label for="dni">DNI:</label>
+        <input id="dni" onblur="comprobarDNI()"/>
+        <p id="cinco" style="visibility:hidden; color:red">Comprueba que el DNI sea válido</p>
+    </div>
+    <br>
+    <div>
+        <label for="usuario">Usuario:</label>
+        <input id="usuario" onblur="comprobarUsuario()"/>
+        <p id="seis" style="visibility:hidden; color:red">Recuerda que el usuario tiene que contener 8 carácteres, entre ellos, un numero, y un punto</p>
+    </div>
+</form>
+<br>
+  <script type="text/javascript">
+
+
+  var usuario = document.getElementById('usuario').value;
+
+    function comprobarNombre() {
+      var nombre = document.getElementById('nombre').value;
+      if (/^([A-Z]{1}[a-zñáéíóú]+[\s]*)+$/.test(nombre)) {
+        nombre = document.getElementById('nombre');
+        nombre.style.backgroundColor = 'rgb(175, 255, 138)';
+      } else {
+        nombre = document.getElementById('nombre');
+        nombre.style.backgroundColor = 'rgb(255, 85, 85)';
+        uno = document.getElementById('uno');
+        uno.style.visibility = 'visible';
+
+      }
+    }
+
+    function comprobarApellido() {
+      var apellidos = document.getElementById('apellido').value;
+      if (/^([A-Z]{1}[a-zñáéíóú]+[\s]*)+$/.test(apellidos)) {
+        apellidos = document.getElementById('apellido');
+        apellidos.style.backgroundColor = 'rgb(175, 255, 138)';
+      } else {
+        apellidos = document.getElementById('apellido');
+        apellidos.style.backgroundColor = 'rgb(255, 85, 85)';
+        dos = document.getElementById('dos');
+        dos.style.visibility = 'visible';
+      }
+    }
+
+    function comprobarCorreo() {
+      var correo = document.getElementById('mail').value;
+      if (/^[a-zA-Z0-9_\-\.~]{2,}@[a-zA-Z0-9_\-\.~]{2,}\.[a-zA-Z]{2,4}$/.test(correo)) {
+        correo = document.getElementById('mail');
+        correo.style.backgroundColor = 'rgb(175, 255, 138)';
+      } else {
+        correo = document.getElementById('mail');
+        correo.style.backgroundColor = 'rgb(255, 85, 85)';
+        tres = document.getElementById('tres');
+        tres.style.visibility = 'visible';
+      }
+    }
+
+    function comprobarTlf() {
+      var tlf = document.getElementById('telefono').value;
+      if (/^[9|6|8]{1}\d{8}$/.test(tlf)) {
+        tlf = document.getElementById('telefono');
+        tlf.style.backgroundColor = 'rgb(175, 255, 138)';
+      } else {
+        tlf = document.getElementById('telefono');
+        tlf.style.backgroundColor = 'rgb(255, 85, 85)';
+        cuatro = document.getElementById('cuatro');
+        cuatro.style.visibility = 'visible';
+      }
+    }
+
+
+    function comprobarDNI() {
+      var dni = document.getElementById('dni').value;
+      if (/^\d{8}([A-Z])$/.test(dni)) {
+        dni = document.getElementById('dni');
+        dni.style.backgroundColor = 'rgb(175, 255, 138)';
+      } else {
+        dni = document.getElementById('dni');
+        dni.style.backgroundColor = 'rgb(255, 85, 85)';
+        cinco = document.getElementById('cinco');
+        cinco.style.visibility = 'visible';
+      }
+    }
+
+    function comprobarUsuario() {
+      var usuario = document.getElementById('usuario').value;
+      if (/^(?=^.{8,}$)((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[a-z]).*$/.test(usuario)) {
+        usuario = document.getElementById('usuario');
+        usuario.style.backgroundColor = 'rgb(175, 255, 138)';
+      } else {
+        usuario = document.getElementById('usuario');
+        usuario.style.backgroundColor = 'rgb(255, 85, 85)';
+        seis = document.getElementById('seis');
+        seis.style.visibility = 'visible';
+      }
+    }
+
+  </script>
+
+</body>
+</html>

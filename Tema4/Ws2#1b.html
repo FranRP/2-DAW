@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ejercicio</title>
+
+  </head>
+  <body>
+
+  <div id="general">
+
+    <div id="lateral">
+
+    </div>
+    <div id="total">
+        <div id="cabecera">
+          <a href="#" onclick="ConEstilos(event)">Poner estilos</a>
+          <a href="#" onclick="SinEstilos(event)">Sin estilos</a>
+        </div>
+
+        <div id="contenido">
+          <h1>Pagina de ejemplo</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p id="negrita">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <br>
+          <div id="recuadro">
+            <p>Esto es otra prueba más</p>
+          </div>
+
+        </div>
+    </div>
+    </div>
+
+    <script type="text/javascript">
+
+      var estilo = document.createElement("link");
+
+      function SinEstilos(){
+      estilo.rel="stylesheet";
+      estilo.type="text/css";
+      estilo.href = "sinEstilos.css";
+      document.head.appendChild(estilo);
+      }
+      function ConEstilos() {
+      estilo.rel="stylesheet";
+      estilo.type="text/css";
+      estilo.href = "conEstilos.css";
+      document.head.appendChild(estilo);
+      }
+
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,34 @@
+
+#general {
+  width: 800px;
+  height: 600px;
+}
+
+#lateral {
+  width: 100px;
+  float:left;
+  padding-left: 50px;
+  background-color: blue;
+  height: 600px;
+}
+
+#negrita {
+  font-weight: bold;
+}
+
+#total {
+  background-color: rgb(249, 255, 185);
+  width:600px;
+  float: left;
+  height: 600px;
+}
+
+#cabecera {
+  background-color: rgb(195, 246, 255);
+  border: solid 1px;
+}
+
+#recuadro {
+  background-color: rgb(242, 252, 48);
+  border: solid 1px;
+}

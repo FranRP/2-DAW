@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ejercicio</title>
+
+  </head>
+  <body>
+
+  <div id="general">
+
+    <div id="lateral">
+
+    </div>
+    <div id="total">
+        <div id="cabecera">
+          <a href="#" onclick="conEstilos(event)">Poner estilos</a>
+          <a href="#" onclick="sinEstilos(event)">Sin estilos</a>
+        </div>
+
+        <div id="contenido">
+          <h1>Pagina de ejemplo</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p id="negrita">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <br>
+          <div id="recuadro">
+            <p>Esto es otra prueba más</p>
+          </div>
+
+        </div>
+    </div>
+    </div>
+
+    <script type="text/javascript">
+
+css = [
+    negra = document.getElementById('negrita'),
+    izquierda = document.getElementById('lateral'),
+    centro = document.getElementById('contenido'),
+    recuadro = document.getElementById('recuadro'),
+    cabeza = document.getElementById('cabecera'),
+    base = document.getElementById('total'),
+    generalizado = document.getElementById('general')
+  ]
+
+
+      function conEstilos(event){
+        generalizado.style.width = '600x';
+        generalizado.style.height = '600x';
+        izquierda.style.width = '100px';
+        izquierda.style.cssFloat = 'left';
+        izquierda.style.paddingLeft = '50px';
+        izquierda.style.backgroundColor = 'blue';
+        izquierda.style.height = '600px';
+        negra.style.fontWeight = "bold";
+        base.style.backgroundColor = 'rgb(249, 255, 185)';
+        base.style.cssfloat = 'left';
+        base.style.height = '600px';
+        cabeza.style.backgroundColor = 'rgb(195, 246, 255)';
+        cabeza.style.border = 'solid 1px';
+        recuadro.style.backgroundColor = 'rgb(242, 252, 48)';
+        recuadro.style.border = 'solid 1px';
+      }
+
+      function sinEstilos(event){
+        document.body.style.cssText = null;
+        for (var i = 0; i < css.length; i++) {
+          css[i].style.cssText = null;
+      }
+  }
+    </script>
+
+  </body>
+</html>

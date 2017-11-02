@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body onload="dibujarTabla()">
+
+
+
+  <script>
+      function dibujarTabla() {
+        document.write('<button type="button" name="button" onclick="borrartodo(event)">Pincha para borrar</button>')
+          document.write("<table id='tablero' border='1' cellspacing='0' align='center'>");
+          for (var i = 0; i <= 50; i++) {
+              document.write("<tr id='uno' onclick='borrar(this)' bgcolor='white' height='10'>");
+              for (var j = 0; j <= 50; j++) {
+                  document.write("<td id='columnas' onmousemove='colorear(this)' align='center' width='10'></td>");
+              };
+          };
+          document.write("</tr>");
+          document.write("</table>");
+      };
+
+      function borrartodo(event) {
+        var x = document.getElementById('tablero');
+        document.close();
+        dibujarTabla();
+      }
+
+
+      function colorear(celda) {
+          if (event.shiftKey == 1) {
+              celda.style.backgroundColor = "Blue";
+          }
+          if (event.ctrlKey == 1) {
+              celda.style.backgroundColor = "red";
+          }
+
+      }
+
+
+
+      function borrar(esto) {
+        esto.remove();
+      }
+
+/*
+      function borrar(esto) {
+        var x = esto.deleteRow();
+        document.getElementById("tabla").deleteRow(x);
+      }
+*/
+
+  </script>
+</body>
+
+</html>
+</body>
+</html>

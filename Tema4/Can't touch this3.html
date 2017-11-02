@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="hammer.min.js" type="text/javascript">
+
+  </script>
+</head>
+<body>
+  <div id="cajonaco"><h1>Esto es una prueba</h1></div>
+
+<script type="text/javascript">
+
+var element = document.getElementById('cajonaco');
+Hammer(element).on("drag", function(event) {
+  alert("Esto es una prueba!!!");
+});
+
+Hammer(element).on("tap",function(event) {
+  alert("Y esto es otra prueba");
+});
+
+
+  </script>
+</body>
+
+</html>
+</body>
+</html>
