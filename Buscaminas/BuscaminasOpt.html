@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Francisco Manuel Roldán Pérez</title>
+</head>
+
+<body>
+
+    <script type="text/javascript">
+
+    var cuenta = 100;
+
+      class Partida {
+        constructor() {
+          this.puntuación = 0;
+          this.intervalo;
+          this.finTiempo = false;
+          this.contador = 0;
+
+        }
+
+
+        comenzar() {
+          if (this.finTiempo == false) {
+              this.intervalo = setInterval(function() {
+                t.dibujarTablero();
+                this.contador = cuenta--;
+                if (cuenta <= 0) {
+                  t.finJuego();
+                  this.finTiempo = true;
+                  clearInterval(p.intervalo);
+                }
+              }, 1000);
+          }
+        }
+
+
+      }
+
+
+
+      class Celdas {
+        constructor(id) {
+          this.posx;
+          this.posy;
+          this.bombaza = false;
+          this.proximidad = 0;
+          this.tapado = true;
+          this.id = id;
+
+        }
+
+      }
+
+
+      class Tabla extends Celdas {
+        constructor() {
+          super();
+          this.puntuacion = 0;
+          this.variable = 0;
+          this.matriz = new Array();
+          this.listaBomb = [];
+        }
+
+        generarMatriz() {
+          for (var arrays = 0; arrays < 8; arrays++) {
+            this.matriz.push(new Array(8));
+          }
+        }
+
+        añadirCeldas() {
+          for (var fila = 0; fila < 8; fila++) {
+            for (var columna = 0; columna < 8; columna++) {
+              this.matriz[fila].fill(new Celdas(this.variable), columna);
+              this.variable++;
+            }
+          }
+          console.log(this.matriz);
+
+        }
+
+
+        crearBombas() {
+          for (var bomb = 0; bomb < 10; bomb++) {
+            var x = Math.floor(Math.random() * 64);
+            while (this.listaBomb.indexOf(x) > -1) {
+              var x = Math.floor(Math.random() * 64);
+            }
+            this.listaBomb.push(x);
+            console.log(this.listaBomb);
+            for (var objeto of this.matriz) {
+              for (var valor of objeto) {
+                if (valor.id == x) {
+                  valor.bombaza = true;
+                }
+              }
+            }
+          }
+        }
+
+        sumar(x,y) {this.matriz[x][y].proximidad++;}
+
+        proximidades() {
+          for (var x = 0; x < 8; x++) {
+            for (var y = 0; y < 8; y++) {
+              if (this.matriz[x][y].bombaza == true) {
+                if(x == 0 && y == 0){
+                  t.sumar(x+1,y);t.sumar(x+1,y+1);t.sumar(x,y+1);
+                }
+                else if(x == 0 && (y > 0 && y < 7)){
+                  t.sumar(x+1,y); t.sumar(x+1,y+1); t.sumar(x,y+1); t.sumar(x,y-1); t.sumar(x+1,y-1);
+                }
+                else if(x == 0 && y == 7){
+                  t.sumar(x+1,y); t.sumar(x+1,y-1); t.sumar(x,y-1);
+                }
+                else if(y == 7 && (x > 0 && x < 7)){
+                  t.sumar(x,y-1); t.sumar(x+1,y);t.sumar(x+1,y-1);t.sumar(x-1,y);t.sumar(x-1,y-1);
+                }
+                else if(x == 7 && y == 7){
+                  t.sumar(x,y-1);t.sumar(x-1,y);t.sumar(x-1,y-1);
+                }
+                else if(x == 7 && (y > 0 && y < 7)){
+                  t.sumar(x,y-1); t.sumar(x-1,y);t.sumar(x-1,y-1);t.sumar(x-1,y+1);t.sumar(x,y+1);
+                }
+                else if(x == 7 && y == 0){
+                  t.sumar(x,y+1);t.sumar(x-1,y);t.sumar(x-1,y+1);
+                }
+                else if(y == 0 && (x > 0 && x < 7)){
+                  t.sumar(x,y+1); t.sumar(x-1,y);t.sumar(x-1,y+1);t.sumar(x+1,y+1);t.sumar(x+1,y);
+                }else{
+                  t.sumar(x,y+1);t.sumar(x,y-1);t.sumar(x-1,y);t.sumar(x-1,y+1);t.sumar(x-1,y-1);
+                  t.sumar(x+1,y);t.sumar(x+1,y-1);t.sumar(x+1,y+1);
+                }
+              }
+            }
+          }
+        }
+
+
+
+        dibujarTablero() {
+          document.close();
+          document.write('<h1 color="blue" style="text-align:center">Te quedan '+cuenta+' seg</h1>')
+          document.write('<table id="tabla" style="margin:auto; margin-top:50px"; border="1";>')
+
+
+          for (var i = 0; i < 8; i++) {
+            document.write('<tr style="text-align: center">');
+            for (var x = 0; x < 8; x++) {
+              if (this.matriz[i][x].bombaza == true) {
+                if (this.matriz[i][x].tapado == true) {
+                  document.write('<td width="50" height="50" bgcolor="black">&nbsp</td>');
+                } else {
+                  document.write('<td width="50" height="50" bgcolor="red" style="background-Image:url(bombita.png)"></td>');
+                }
+              } else {
+                if (this.matriz[i][x].tapado == true) {
+                  document.write('<td width="50" height="50" bgcolor="black">&nbsp</td>');
+                } else {
+                  if (this.matriz[i][x].proximidad != 0) {
+                    if (this.matriz[i][x].proximidad == 1) {
+                      document.write('<td width="50" height="50" style="color:rgb(38, 24, 194)">' + this.matriz[i][x].proximidad + '</td>');
+                    } else if (this.matriz[i][x].proximidad == 2) {
+                      document.write('<td width="50" height="50" style="color:rgb(213, 12, 223)">' + this.matriz[i][x].proximidad + '</td>');
+                    } else {
+                      document.write('<td width="50" height="50" style="color:rgb(214, 5, 49)">' + this.matriz[i][x].proximidad + '</td>');
+                    }
+                  } else {
+                    document.write('<td width="50" height="50">&nbsp</td>');
+                  }
+
+                }
+              }
+            }
+          }
+          document.write('</tr>');
+          document.write('</table>')
+        }
+
+        comprobarVictoria() {
+          this.puntuacion = 0;
+          for (var objeto of this.matriz) {
+            for (var valor of objeto) {
+              if (valor.tapado == false) {
+                this.puntuacion += 1
+                if (this.puntuacion == 54) {
+                    alert('Se acabó! has ganado')
+                }
+              }
+          }
+        }
+      }
+
+        destapar(x,y) {
+          if (this.matriz[x][y].tapado == true) {
+            if (this.matriz[x][y].bombaza == true) {
+              alert('Te has comido una bomba bro!')
+              t.finJuego();
+              t.dibujarTablero();
+            } else {
+              if (this.matriz[x][y].proximidad != 0){
+                this.matriz[x][y].tapado = false;
+              } else {
+                this.matriz[x][y].tapado = false;
+                t.colindantes(x,y);
+              }
+              t.dibujarTablero();
+              t.comprobarVictoria();
+            }
+
+          }
+        }
+
+
+        colindantes(x,y) {
+          if(x == 0 && y == 0){
+            t.destapar(x+1,y);t.destapar(x+1,y+1);t.destapar(x,y+1);
+          }
+          else if(x == 0 && (y > 0 && y < 7)){
+            t.destapar(x+1,y); t.destapar(x+1,y+1); t.destapar(x,y+1); t.destapar(x,y-1); t.destapar(x+1,y-1);
+          }
+          else if(x == 0 && y == 7){
+            t.destapar(x+1,y); t.destapar(x+1,y-1); t.destapar(x,y-1);
+          }
+          else if(y == 7 && (x > 0 && x < 7)){
+            t.destapar(x,y-1); t.destapar(x+1,y);t.destapar(x+1,y-1);t.destapar(x-1,y);t.destapar(x-1,y-1);
+          }
+          else if(x == 7 && y == 7){
+            t.destapar(x,y-1);t.destapar(x-1,y);t.destapar(x-1,y-1);
+          }
+          else if(x == 7 && (y > 0 && y < 7)){
+            t.destapar(x,y-1); t.destapar(x-1,y);t.destapar(x-1,y-1);t.destapar(x-1,y+1);t.destapar(x,y+1);
+          }
+          else if(x == 7 && y == 0){
+            t.destapar(x,y+1);t.destapar(x-1,y);t.destapar(x-1,y+1);
+          }
+          else if(y == 0 && (x > 0 && x < 7)){
+            t.destapar(x,y+1); t.destapar(x-1,y);t.destapar(x-1,y+1);t.destapar(x+1,y+1);t.destapar(x+1,y);
+          }else{
+            t.destapar(x,y+1);t.destapar(x,y-1);t.destapar(x-1,y);t.destapar(x-1,y+1);t.destapar(x-1,y-1);
+            t.destapar(x+1,y);t.destapar(x+1,y-1);t.destapar(x+1,y+1);
+          }
+        }
+
+        finJuego() {
+          console.log('Tienes/tenías '+t.puntuacion+' puntazos!!!')
+            for (var p = 0; p < 8; p++) {
+              for (var i = 0; i < 8; i++) {
+                if (this.matriz[p][i].tapado == true) {
+                  this.matriz[p][i].tapado = false;
+                }
+              }
+            }
+            cuenta = 0;
+            t.dibujarTablero();
+        }
+      }
+
+
+
+      p = new Partida(); t = new Tabla(); t.generarMatriz(); t.añadirCeldas(); t.crearBombas(); t.proximidades(); t.dibujarTablero();p.comenzar();
+    </script>
+</body>
+</html>

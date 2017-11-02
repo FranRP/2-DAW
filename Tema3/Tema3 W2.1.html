@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+<script type="text/javascript">
+
+      //a
+      numeros = [2,3,5,11,1,7,6,4];
+      numeros.sort(function(a,b) {
+        return a-b;
+      });
+      document.write(numeros[numeros.length-1]);
+      document.write('<br>')
+
+
+      //b
+      frases = ['hola','como','pablico','no'];
+      frases.sort(function(a,b){
+        return b.length - a.length;
+      });
+      document.write(frases[0]);
+      document.write('<br>')
+
+      //c
+      lista = [1,2,3,'hola',5,'como',6,'estas'];
+      x = lista.filter(function(element) {
+        return typeof(element) == 'number';
+      });
+      document.write(x);
+      document.write('<br>');
+
+
+      //d
+      lista2 = [1,2,3,4,5,6,7,8,9,10];
+      c = lista2.filter(function(element) {
+        return element%2!=0;
+      });
+      document.write(c);
+      document.write('<br>');
+
+
+      //e
+      palabras = ['isabel','Fransis','Pablo','Antonio','Cisquito'];
+      b = palabras.filter(function(element) {
+        return element.indexOf('is') > -1
+      })
+      document.write(b);
+      document.write('<br>');
+
+      //f
+      divisibles = [1,2,3,4,5,6,7];
+      z = divisibles.filter(function(element){
+        return element % 3 == 0;
+      });
+      document.write(z);
+      document.write('<br>');
+
+      //g
+      array1 = ['Hola','Como','Estas'];
+      array2 = ['Pos','mu','bien'];
+      a = array1.concat(array2);
+      document.write(a);
+      document.write('<br>');
+
+      //h
+      onlyletras = ['abcd','e','fg','hij','klmnñ','n'];
+      onlyletras.sort(function(a,b){
+        return a.length - b.length;
+      });
+      document.write(onlyletras);
+      document.write('<br>')
+
+      //i
+      array1.shift();
+      document.write(array1);
+      document.write('<br>');
+
+      //j
+      array1.unshift('Probando');
+      document.write(array1);
+      document.write('<br>');
+
+      //K
+      remover = ['Esta','frase','esta','mal'];
+      remover.splice(3,1,'bien');
+      document.write(remover);
+      document.write('<br>');
+
+      //L
+      var jota = ['jose','ajo','joaquin','carlos','david','fran','zijo'];
+      ñ = jota.filter(function(element) {
+        return element.indexOf('j') == 0;
+      })
+      document.write(ñ);
+
+</script>
+</body>
+</html>

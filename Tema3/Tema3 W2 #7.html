@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>  
+<meta charset="UTF-8">
+</head>
+<body>
+<script type="text/javascript">
+		//Hacer 8 y 9, y el 1 de la 2.1
+		var array = ['hola','que','ase','tu'];
+		
+		function establecerValores() {
+			array.forEach(function(element,index) {
+				console.log(array[index]);
+				array[index] = 0;
+			});
+			console.log(array);
+		}
+		
+		establecerValores();
+		
+		function sumarValor() {
+			array.forEach(function(element,index) {
+				array[index]++;
+			});
+			console.log(array);
+		}
+		
+		sumarValor();
+		
+		function mostrarValor() {
+			array.forEach(function(element) {
+				console.log(element);
+			});
+		}
+		
+		mostrarValor();
+</script>
+</body>
+</html> 

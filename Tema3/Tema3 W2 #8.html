@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>  
+<meta charset="UTF-8">
+</head>
+<body>
+<script type="text/javascript">
+
+		//Hacer 9, y el 1 de la 2.1
+		
+		var array = [0,0,0,0,0,0,0,0,0,0,0];
+	
+		function dosDados() {
+			for (i=0; i < 3600; i++) {
+				var primero = Math.floor(Math.random()*6)+1;
+				var segundo = Math.floor(Math.random()*6)+1;
+				var suma = primero + segundo;
+				for (x=2; x <= 13; x++) {
+					if (x == suma) {
+						array[x - 2]++
+					}
+				}
+			}
+			document.write(array);		
+		}
+
+		
+		dosDados();
+		
+</script>
+</body>
+</html> 

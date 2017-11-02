@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>  
+<meta charset="UTF-8">
+</head>
+<body>
+<script type="text/javascript">
+
+		//Hacer 9, y el 1 de la 2.1
+		
+		var array = [0,0,0,0,0,0,0,0,0,0,0];
+		var uno = [];
+	
+		function dosDados() {
+			document.write('<table border="1">');
+			for (i=0; i < 360; i++) {
+				var primero = Math.floor(Math.random()*6)+1;
+				var segundo = Math.floor(Math.random()*6)+1;
+				var suma = primero + segundo;
+				uno.push([primero, segundo]);
+				document.write('<tr>');
+				document.write("<td>"+uno[i]+"<td>");
+				document.write("<td>"+suma+"</td>");		
+				document.write('</tr>');
+				for (x=2; x <= 13; x++) {
+					if (x == suma) {
+						array[x - 2]++
+					}
+				}
+			}
+			document.write('</table>');
+			console.log(array);
+			console.log(uno);
+		}
+
+		
+		
+		dosDados();
+		
+</script>
+</body>
+</html> 

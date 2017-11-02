@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>  
+<meta charset="UTF-8">
+</head>
+<body>
+<script type="text/javascript">
+		
+		function paresImpares() {
+			var lista = [];
+			for (var x = 1; x <= 100; x++) {
+				lista.push(Math.floor(Math.random()*1000)+1);
+			}
+			document.write(lista);
+			document.write('<br>');
+			lista.sort(function (a,b) {
+				if (a%2 == 0)  {
+					return -1;
+				} else if (b%2 == 0) {
+					return 1;
+				}
+			});
+			document.write(lista);
+		}
+		
+		paresImpares();
+		
+</script>
+</body>
+</html> 
