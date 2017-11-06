@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ejercicio 4</title>
+  <style type="text/css">
+
+    #fruta {
+      float:left;
+    }
+    #botoncico {
+      float:left;
+    }
+
+  </style>
+</head>
+
+<body>
+  <input id='fruta' type="text" name="" value="">
+  <button id='botoncico' type="button" name="anadir" onclick="anadir()">Fruta nueva</button>
+  <br>
+  <h2>Fruta</h2>
+  <ul>
+    <li>Pera</li>
+    <li>Manzana</li>
+    <li>Banana</li>
+    <li>Kiwi</li>
+    <li>Naranja</li>
+  </ul>
+
+
+  <script type="text/javascript">
+
+    function anadir(){
+      var nuevo = document.getElementById('fruta').value;
+      var lista = document.getElementsByTagName('ul');
+      var frutas = document.getElementsByTagName('li');
+      var li = document.createElement('li');
+      lista[0].appendChild(li);
+      frutas[frutas.length - 1].innerHTML = nuevo;
+    }
+  </script>
+
+</body>
+
+</html>

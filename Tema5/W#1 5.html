@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style type="text/css">
+  </style>
+</head>
+
+<body>
+      <input type="file" name="Adjuntar un fichero" onclick="nuevoArchivo()">
+      <input type="submit" value="Enviar datos">
+
+
+
+  <script type="text/javascript">
+
+
+    function nuevoArchivo() {
+      elementoespacio = document.createElement('br');
+      elemento1 = document.createElement('input');
+      elemento2 = document.createElement('input');
+      document.body.appendChild(elementoespacio);
+      document.body.appendChild(elemento1);
+      document.body.appendChild(elemento2);
+      elemento1.type = "file";
+      elemento1.name = "Adjuntar un fichero";
+      elemento2.type = "submit";
+      elemento2.value = "Enviar datos";
+      elemento1.onclick = nuevoArchivo;
+    }
+
+  </script>
+
+</body>
+
+</html>

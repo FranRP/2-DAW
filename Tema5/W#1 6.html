@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <style media="screen">
+    img {
+      height: 100px;
+      width: 100px;
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <img id='imagen' src="file:///D:/CLASE2%C2%BADAW/DWECJose/Tema5/imagen1.jpg" alt="">
+  <br>
+  <button type="button" name="button" onclick="Anterior()">Anterior</button>
+  <button type="button" name="button" onclick="Siguiente()">Siguiente</button>
+
+  <script type="text/javascript">
+
+    var imagenActual;
+    var posicion;
+    var prueba;
+
+
+    var lista = ["file:///D:/CLASE2%C2%BADAW/DWECJose/Tema5/imagen2.jpg",
+                 "file:///D:/CLASE2%C2%BADAW/DWECJose/Tema5/imagen1.jpg",
+                 "file:///D:/CLASE2%C2%BADAW/DWECJose/Tema5/imagen0.jpg",
+                 "file:///D:/CLASE2%C2%BADAW/DWECJose/Tema5/bombita.png"
+                ];
+
+
+    function Siguiente() {
+      imagenActual = document.getElementById('imagen');
+      posicion = document.getElementById('imagen').src;
+      prueba = lista.indexOf(posicion);
+      if (posicion != lista[lista.length - 1]) {
+        imagenActual.src = lista[prueba+1];
+      } else {
+        console.log('Es la ultima imagen');
+      }
+    }
+
+    function Anterior() {
+      imagenActual = document.getElementById('imagen');
+      posicion = document.getElementById('imagen').src;
+      prueba = lista.indexOf(posicion);
+      if (posicion != lista[0]) {
+        imagenActual.src = lista[prueba - 1];
+      } else {
+        console.log('Es la primera imagen');
+      }
+    }
+
+  </script>
+
+</body>
+</html>

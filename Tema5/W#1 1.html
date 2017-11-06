@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ejercicio 1</title>
+  <style type="text/css">
+  </style>
+</head>
+
+<body>
+  <p><a href="https://www.google.es/">Moodle</a>
+    <a href="https://www.google.es/">Google</a>
+    <a href="http://www.marca.com/">Marca</a>
+    <a href="https://github.com/FranRP">Github</a>
+  </p>
+  <p><a href="http://www.marca.com/">Marca</a>
+    <a href="https://www.google.es/">Google</a>
+    <a href="https://github.com/FranRP">Moodle</a>
+  </p>
+  <p>
+    <a href="https://www.google.es/">Marca</a>
+    <a href="https://github.com/FranRP">Google</a>
+  </p>
+  <p id="numeroEnlaces"></p>
+  <p id="penultimo"></p>
+  <p id="google"></p>
+  <p id="parrafo3"></p>
+
+
+  <script type="text/javascript">
+
+    function total() {
+      var enlaces = document.getElementsByTagName('a');
+      var cont = 0;
+      for (var i = 0; i < enlaces.length; i++) {
+        cont++;
+      }
+      document.getElementById("numeroEnlaces").innerHTML = `Hay ${cont} enlaces en total.`;
+    }
+    function penultimo() {
+      var enlaces = document.getElementsByTagName('a');
+      var direccion = enlaces[enlaces.length - 2].href;
+      document.getElementById("penultimo").innerHTML = `Penultimo enlace: ${direccion}.`;
+    }
+    function google() {
+      var enlaces = document.getElementsByTagName('a');
+      var cont = 0;
+      for (var i = 0; i < enlaces.length; i++) {
+        if (enlaces[i].href == "https://www.google.es/") {
+          cont++;
+        }
+      }
+      document.getElementById("google").innerHTML = `Hay ${cont} enlaces apuntando a Google.`;
+    }
+    function enlacesParrafo3() {
+      var parrafos = document.getElementsByTagName('p');
+      var enlaces = parrafos[2].getElementsByTagName('a');
+      var cont = 0;
+      for (var i = 0; i < enlaces.length; i++) {
+        cont++;
+      }
+      document.getElementById("parrafo3").innerHTML = `Hay ${cont} enlaces en el párrafo 3.`;
+    }
+
+
+    window.onload = (total(), penultimo(), google(), enlacesParrafo3());
+  </script>
+
+</body>
+
+</html>
