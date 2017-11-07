@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <svg height="500" width="1000" xmlns=http://www.w3.org/2000/svg>
+    <circle id="yellowcircle" cx="100" cy="100" r="50" fill="rgb(67, 251, 128)"/>
+    <circle id="blackcircle" cx="100" cy="400" r="50" fill="rgb(29, 34, 31)"/>
+  </svg>
+
+  <script type="text/javascript">
+
+
+      var FPS = 60;
+      setInterval(function() {
+      mover(), movercir();
+    }, 1000 / FPS);
+
+
+var circulo = document.getElementById('yellowcircle');
+var posicionx;
+var posiciony;
+var pasox = 7;
+var pasoy = 5;
+
+var circulo2 = document.getElementById('blackcircle');
+var posicion2x;
+var posicion2y;
+var paso2x = 5;
+var paso2y = -5;
+var distancia;
+
+    function mover() {
+      posicionx = parseInt(circulo.getAttribute('cx'));
+      posiciony = parseInt(circulo.getAttribute('cy'));
+      distanciaejex = Math.abs(posicionx - posicion2x);
+      distanciaejey = Math.abs(posiciony - posicion2y);
+      console.log(distanciaejex);
+      if ((posicionx < 1000) && (posiciony < 440)) {
+        circulo.setAttribute('cx', posicionx + pasox);
+        circulo.setAttribute('cy', posiciony + pasoy);
+      } if ((posiciony <= 50) || (posiciony >= 440)){
+        pasoy *= -1;
+        circulo.setAttribute('cx', posicionx + pasox);
+        circulo.setAttribute('cy', posiciony + pasoy);
+      } if ((posicionx >= 950) || (posicionx <= 60)) {
+        pasox *= -1;
+        circulo.setAttribute('cx', posicionx + pasox);
+        circulo.setAttribute('cy', posiciony + pasoy);
+      } if ((distanciaejex <= 100) && (distanciaejey <=75)) {
+        pasox *= -1;
+        circulo.setAttribute('cx', posicionx + pasox);
+        circulo.setAttribute('cy', posiciony + pasoy);
+      }
+        if ((distanciaejex <= 75) && (distanciaejey <=100)) {
+          pasoy *= -1;
+          circulo.setAttribute('cx', posicionx + pasox);
+          circulo.setAttribute('cy', posiciony + pasoy);
+      }
+    }
+
+
+
+    function movercir() {
+      posicion2x = parseInt(circulo2.getAttribute('cx'));
+      posicion2y = parseInt(circulo2.getAttribute('cy'));
+      distanciaejex = Math.abs(posicionx - posicion2x);
+      distanciaejey = Math.abs(posiciony - posicion2y);
+      if ((posicion2x < 1000) && (posicion2y < 450)) {
+        circulo2.setAttribute('cx', posicion2x + paso2x);
+        circulo2.setAttribute('cy', posicion2y + paso2y);
+      } if ((posicion2y <= 50) || (posicion2y >= 450)){
+        paso2y *= -1;
+        circulo2.setAttribute('cx', posicion2x + paso2x);
+        circulo2.setAttribute('cy', posicion2y + paso2y);
+      } if ((posicion2x >= 950) || (posicion2x <= 60)) {
+        paso2x *= -1;
+        circulo2.setAttribute('cx', posicion2x + paso2x);
+        circulo2.setAttribute('cy', posicion2y + paso2y);
+      }if ((distanciaejex <= 100) && (distanciaejey <=75)) {
+          paso2x *= -1;
+          circulo2.setAttribute('cx', posicion2x + paso2x);
+          circulo2.setAttribute('cy', posicion2y + paso2y);
+        }if ((distanciaejex <= 75) && (distanciaejey <=100)) {
+          paso2y *= -1;
+          circulo2.setAttribute('cx', posicion2x + paso2x);
+          circulo2.setAttribute('cy', posicion2y + paso2y);
+        }
+    }
+
+
+  </script>
+
+</body>
+</html>
