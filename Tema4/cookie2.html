@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body id="cuerpo">
+  <input type="text" id="nick" name="" value="">
+  <button type="button" name="button" onclick="crearCookie()">Iniciar sesión</button>
+  <button type="button" name="button" onclick="borrarCookie(event)">Cerrar sesión</button>
+  <p id="parrafo" >Esto es una prueba</p>
+
+  <script type="text/javascript">
+
+
+  var nombre;
+  var prueba;
+  var colorFondo;
+  var tamañoTexto;
+  var colorParrafo;
+  var cuerpo;
+  var parrafo;
+
+    function crearCookie(event) {
+      cuerpo = document.getElementById('cuerpo');
+      parrafo = document.getElementById('parrafo');
+      if (document.cookie == '') {
+        if ((document.getElementById('nick').value != null) && (document.getElementById('nick').value != '')){
+          nombre = document.getElementById('nick').value;
+          prueba = nombre;
+          document.cookie = 'username='+nombre+';path=/;max-age='+5*4+';';
+          alert('Es tu primera vez, y se ha guardado la cookie');
+          colorFondo = prompt('Dime tu color de fondo');
+          colorParrafo = prompt('Dime tu color de parrafo');
+          tamañoTexto = prompt('Dime el tamaño del texto');
+          }
+        } else {
+          nombre = document.getElementById('nick').value;
+            if (prueba == nombre){
+              alert('Hola '+nombre+' te recuerdo');
+              cuerpo.style.backgroundColor = String(colorFondo);
+              parrafo.style.color = String(colorParrafo);
+              parrafo.style.fontSize = String(tamañoTexto);
+            } else {
+              cuerpo.style.backgroundColor = null;
+              parrafo.style.fontSize = null;
+              parrafo.style.color = null;
+              alert('No eres la misma persona');
+            }
+        }
+    }
+
+    function borrarCookie(event) {
+      if ((document.getElementById('nick').value != null) && (document.getElementById('nick').value != '') && (prueba == nombre)){
+        alert('Cookie borrada');
+        document.cookie = 'username='+nombre+';expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;';
+      }
+    }
+
+
+
+  </script>
+
+</body>
+</html>
