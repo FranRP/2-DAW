@@ -7,25 +7,38 @@
   <title>Document</title>
 </head>
 <body>
-  <input type="text" id="nick" onblur="crearCookie()" name="" value="">
+  <input type="text" id="nick" name="" value="">
+  <button type="button" name="button" onclick="crearCookie()">Iniciar sesión</button>
+  <button type="button" name="button" onclick="borrarCookie(event)">Cerrar sesión</button>
 
   <script type="text/javascript">
 
-  var booleano = false;
 
-    function crearCookie() {
-      var nombre = document.getElementById('nick').value;
-      console.log(nombre);
-      if (booleano == false) {
-        document.cookie = "username="+nombre+"; mag-age=10; path=/";
+  var nombre;
+  var prueba;
+
+    function crearCookie(event) {
+      if (document.cookie == '') {
+        nombre = document.getElementById('nick').value;
+        prueba = nombre;
+        document.cookie = 'username='+nombre+';path=/;max-age='+5*3+';';
         alert('Es tu primera vez, y se ha guardado la cookie');
-        booleano = true;
       } else {
-        alert('Hola '+nombre+' te recuerdo');
+        nombre = document.getElementById('nick').value;
+          if (prueba == nombre){
+            alert('Hola '+nombre+' te recuerdo');
+          } else {
+            alert('No eres la misma persona');
+          }
       }
     }
 
-
+    function borrarCookie(event) {
+      if ((document.getElementById('nick').value != null) && (document.getElementById('nick').value != '') && (prueba == nombre)){
+        alert('Cookie borrada');
+        document.cookie = 'username='+nombre+';expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;';
+      }
+    }
 
   </script>
 
