@@ -34,6 +34,16 @@ var paso2x = 5;
 var paso2y = -5;
 var distancia;
 
+    function movimientouno() {
+      circulo.setAttribute('cx', posicionx + pasox);
+      circulo.setAttribute('cy', posiciony + pasoy);
+    }
+
+    function movimientodos() {
+      circulo2.setAttribute('cx', posicion2x + paso2x);
+      circulo2.setAttribute('cy', posicion2y + paso2y);    }
+
+
     function mover() {
       posicionx = parseInt(circulo.getAttribute('cx'));
       posiciony = parseInt(circulo.getAttribute('cy'));
@@ -41,26 +51,20 @@ var distancia;
       distanciaejey = Math.abs(posiciony - posicion2y);
       console.log(distanciaejex);
       if ((posicionx < 1000) && (posiciony < 440)) {
-        circulo.setAttribute('cx', posicionx + pasox);
-        circulo.setAttribute('cy', posiciony + pasoy);
+        movimientouno();
       } if ((posiciony <= 50) || (posiciony >= 440)){
         pasoy *= -1;
-        circulo.setAttribute('cx', posicionx + pasox);
-        circulo.setAttribute('cy', posiciony + pasoy);
+        movimientouno();
       } if ((posicionx >= 950) || (posicionx <= 60)) {
         pasox *= -1;
-        circulo.setAttribute('cx', posicionx + pasox);
-        circulo.setAttribute('cy', posiciony + pasoy);
+        movimientouno();
       } if ((distanciaejex <= 110) && (distanciaejey <=80)) {
         pasox *= -1;
-        circulo.setAttribute('cx', posicionx + pasox);
-        circulo.setAttribute('cy', posiciony + pasoy);
-      }
-        if ((distanciaejex <= 80) && (distanciaejey <=110)) {
-          pasoy *= -1;
-          circulo.setAttribute('cx', posicionx + pasox);
-          circulo.setAttribute('cy', posiciony + pasoy);
-      }
+        movimientouno();
+      } if ((distanciaejex <= 80) && (distanciaejey <=110)) {
+        pasoy *= -1;
+        movimientouno();
+        }
     }
 
 
@@ -71,24 +75,19 @@ var distancia;
       distanciaejex = Math.abs(posicionx - posicion2x);
       distanciaejey = Math.abs(posiciony - posicion2y);
       if ((posicion2x < 1000) && (posicion2y < 450)) {
-        circulo2.setAttribute('cx', posicion2x + paso2x);
-        circulo2.setAttribute('cy', posicion2y + paso2y);
+        movimientodos();
       } if ((posicion2y <= 50) || (posicion2y >= 450)){
         paso2y *= -1;
-        circulo2.setAttribute('cx', posicion2x + paso2x);
-        circulo2.setAttribute('cy', posicion2y + paso2y);
+        movimientodos();
       } if ((posicion2x >= 950) || (posicion2x <= 60)) {
         paso2x *= -1;
-        circulo2.setAttribute('cx', posicion2x + paso2x);
-        circulo2.setAttribute('cy', posicion2y + paso2y);
-      }if ((distanciaejex <= 110) && (distanciaejey <=80)) {
-          paso2x *= -1;
-          circulo2.setAttribute('cx', posicion2x + paso2x);
-          circulo2.setAttribute('cy', posicion2y + paso2y);
-        }if ((distanciaejex <= 80) && (distanciaejey <=110)) {
-          paso2y *= -1;
-          circulo2.setAttribute('cx', posicion2x + paso2x);
-          circulo2.setAttribute('cy', posicion2y + paso2y);
+        movimientodos();
+      } if ((distanciaejex <= 110) && (distanciaejey <=80)) {
+        paso2x *= -1;
+        movimientodos();
+      } if ((distanciaejex <= 80) && (distanciaejey <=110)) {
+        paso2y *= -1;
+        movimientodos();
         }
     }
 

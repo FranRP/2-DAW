@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <style media="screen">
+    svg {
+      margin-top: 50px;
+      border: solid 2px black;
+      background-image: url("campo.jpg");
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+    }
+
+    #rojo {
+      float:left;
+      color:red;
+      margin-right: 150px;
+      margin-left: 40px;
+    }
+
+    #azul {
+      color:blue;
+    }
+
+    #goal img {
+      width: 400px;
+      height: 200px;
+    }
+
+    #goal {
+      position:absolute;
+      visibility:hidden;
+      animation-play-state:paused;
+      margin-top: 250px;
+      animation-name: animacion;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes animacion {
+      from {
+      }
+      60%,100% {
+        transform: rotate3d(10,2,2,360deg);
+      }
+      to {
+      }
+    }
+
+
+  </style>
+</head>
+<body>
+  <div id="goal">
+    <img src="golazo.png" alt="">
+  </div>
+  <div id="bloque">
+    <div>
+      <h1 id="rojo">Puntuación equipo rojo: 0</h1>
+    </div>
+    <div>
+      <h1 id="azul">Puntuación equipo azul: 0</h1>
+    </div>
+  <svg height="470" width="945" xmlns=http://www.w3.org/2000/svg>
+    <circle id="blackcircle" cx="100" cy="300" r="20" stroke="black" stroke-width="3" fill="white"/>
+  </svg>
+  </div>
+
+  <audio id="myAudio">
+    <source src="golgol.mp3" type="audio/mpeg">
+  </audio>
+
+
+  <script type="text/javascript">
+
+  var posicionx;
+  var posiciony;
+
+
+  class Puntuaciones {
+    constructor() {
+      this.equipoazul = document.getElementById('azul');
+      this.equiporojo = document.getElementById('rojo');
+      this.contadorR = 1;
+      this.contadorA = 1;
+    }
+
+    modificarScore(equipo) {
+      if (equipo == 'rojo') {
+        this.equiporojo.innerHTML = 'Puntuación equipo rojo: '+this.contadorR++;
+      } else {
+        this.equipoazul.innerHTML = 'Puntuación equipo azul: '+this.contadorA++;
+      }
+    }
+
+  }
+
+
+
+  class Pelota extends Puntuaciones {
+    constructor() {
+      super();
+      this.pasox = 3;
+      this.pasoy = 5;
+      this.circulo;
+      this.golaso = document.getElementById('goal');
+      this.x = document.getElementById("myAudio");
+
+    }
+
+    tomarCirculo() {
+      this.circulo = document.getElementById('blackcircle');
+      console.log(this.circulo);
+    }
+
+    movimiento() {
+      this.circulo.setAttribute('cx', posicionx + this.pasox);
+      this.circulo.setAttribute('cy', posiciony + this.pasoy);
+    }
+
+    mostrar() {
+      this.golaso.style.visibility = "visible";
+      this.x.play();
+      this.golaso.style.animationPlayState = "running";
+      setTimeout(p.ocultar, 1800);
+    }
+
+    ocultar() {
+      this.golaso = document.getElementById('goal');
+      this.golaso.style.visibility = "hidden";
+      this.golaso.style.animationPlayState = "paused";
+    }
+
+    colisiones() {
+      posicionx = parseInt(this.circulo.getAttribute('cx'));
+      posiciony = parseInt(this.circulo.getAttribute('cy'));
+      if ((posicionx < 925) && (posiciony < 450)) {
+        p.movimiento();
+      } if ((posiciony <= 20) || (posiciony >= 450)){
+        this.pasoy *= -1;
+        p.movimiento();
+      } if ((posicionx >= 925) || (posicionx <= 20)) {
+        this.pasox *= -1;
+        p.movimiento();
+        if (posicionx >= 925) {
+          p.modificarScore('rojo');
+          p.mostrar();
+        } else if (posicionx <= 20) {
+          p.modificarScore('azul');
+          p.mostrar();
+        }
+      }
+    }
+  }
+
+  p = new Pelota();
+  p.tomarCirculo();
+  var FPS = 60;
+  setInterval(function() {
+  p.colisiones();
+}, 1000 / FPS);
+
+
+
+  </script>
+
+</body>
+</html>

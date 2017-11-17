@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body onload="crear()">
+
+  <script type="text/javascript">
+
+function crear() {
+  for (var z = 0; z < 20; z++) {
+    imagen = document.createElement('img');
+    imagen.setAttribute('src',"imagen0.jpg");
+    imagen.setAttribute('cont','0');
+    imagen.setAttribute('onclick',"contando(this)");
+    imagen.setAttribute('id','gatito'+z);
+    document.body.appendChild(imagen);
+  }
+
+  for (var o = 0; o < 20; o++) {
+    parrafo = document.createElement('p');
+    parrafo.setAttribute('id','prueba'+o);
+    document.body.appendChild(parrafo);
+  }
+
+  gatitos();
+}
+
+
+  var todos = [];
+  var parrafos = [];
+  var todasid = [];
+  var todosp = [];
+
+  function gatitos() {
+    todos = document.getElementsByTagName('img');
+    parrafos = document.getElementsByTagName('p');
+    for (var i = 0; i < todos.length; i++) {
+      todasid.push(todos[i].id);
+    }
+    for (var x = 0; x < parrafos.length; x++) {
+      todosp.push(parrafos[x].id);
+    }
+
+}
+
+  function contando(elemento) {
+    var posicion = todasid.indexOf(elemento.id);
+    var contador = parseInt(elemento.getAttribute('cont')) + 1;
+    elemento.setAttribute('cont',String(contador));
+    console.log(contador);
+    document.getElementById(todosp[posicion]).innerHTML = 'Has hecho click en '+elemento.id+' '+contador;
+  }
+
+
+
+
+  </script>
+
+</body>
+</html>

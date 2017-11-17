@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+
+    </style>
+  </head>
+  <body>
+    <script>
+
+//--------------------------------------------- MODELO
+
+    class Stick {
+      constructor(titulo, texto, hora){
+        this.titulo = titulo;
+        this.texto = texto;
+        this.hora = hora
+      }
+    }
+
+    class ModeloDatos{
+
+        constructor(){
+            this.stickes = new Array();
+            this.seleccionado = null;
+        }
+
+        crearNotas(titulo, texto, hora) {
+          this.stickes.push(new Stick(titulo, texto, hora));
+        }
+
+        set stickSeleccionado(numero){
+            this.seleccionado = this.stickes[numero];
+        }
+
+        get stickSeleccionado(){
+            return this.seleccionado;
+        }
+    }
+
+
+//--------------------------------------------- VISTA
+
+  class listaSticks {
+    constructor(controlador) {
+      this.controlador = controlador;
+      this.crear();
+    }
+
+    crear() {
+      var btn = document.createElement("div");
+      btn.style.width = "200px";
+      btn.style.height = "200px";
+      btn.style.backgroundColor = "rgb(255, 254, 153)";
+      var parrafo = btn.createElement("p");
+      parrafo.innerHTML = "hola";
+      document.body.appendChild(btn);
+    }
+  }
+
+
+    </script>
+  </body>
+</html>

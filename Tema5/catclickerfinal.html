@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body onload="gatitos()">
+  <img id="gato" src="imagen0.jpg" alt="" cont = '0' onclick="contando(this)">
+  <img id="gatito1" src="gatito.png" alt=""  cont = '0' onclick="contando(this)">
+  <img id="gatito2" src="gatito.png" alt=""  cont = '0' onclick="contando(this)">
+  <img id="gatito3" src="gatito.png" alt=""  cont = '0' onclick="contando(this)">
+  <img id="gatito4" src="gatito.png" alt=""  cont = '0' onclick="contando(this)">
+  <img id="gatito5" src="gatito.png" alt=""  cont = '0' onclick="contando(this)">
+  <img id="gatito6" src="gatito.png" alt=""  cont = '0' onclick="contando(this)">
+  <p id="prueba1"></p>
+  <p id="prueba2"></p>
+  <p id="prueba3"></p>
+  <p id="prueba4"></p>
+  <p id="prueba5"></p>
+  <p id="prueba6"></p>
+  <p id="prueba7"></p>
+
+
+  <script type="text/javascript">
+
+
+
+  var todos = [];
+  var parrafos = [];
+  var todasid = [];
+  var todosp = [];
+
+  function gatitos() {
+    todos = document.getElementsByTagName('img');
+    parrafos = document.getElementsByTagName('p');
+    for (var i = 0; i < todos.length; i++) {
+      todasid.push(todos[i].id);
+    }
+    for (var x = 0; x < parrafos.length; x++) {
+      todosp.push(parrafos[x].id);
+    }
+
+}
+
+  function contando(elemento) {
+    var posicion = todasid.indexOf(elemento.id);
+    var contador = parseInt(elemento.getAttribute('cont')) + 1;
+    elemento.setAttribute('cont',String(contador));
+    console.log(contador);
+    document.getElementById(todosp[posicion]).innerHTML = 'Has hecho click en '+elemento.id+' '+contador;
+  }
+
+
+
+
+  </script>
+
+</body>
+</html>
