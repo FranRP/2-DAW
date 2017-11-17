@@ -11,20 +11,20 @@
   <body>
     <div id="mapa"></div>
     <script>
-	
+
 	var uluru;
 	var marker;
 	var mapa
 	function posicion() {
 		if ("geolocation" in navigator) {
-			return navigator.geolocation.getCurrentPosition(Mapa);
+			navigator.geolocation.getCurrentPosition(Mapa);
 		} else {
 			document.write('Desactivado');
 		}
 	}
 
 
-	
+
       function Mapa(position) {
         uluru = {lat: position.coords.latitude, lng: position.coords.longitude};
         mapa = new google.maps.Map(document.getElementById('mapa'), {
@@ -43,8 +43,8 @@
 		geocodeLatLng(geocoder, mapa, infowindow);
 
       }
-	  
-	  
+
+
 	    function toggleBounce() {
 			if (marker.getAnimation() !== null) {
 			  marker.setAnimation(null);
@@ -52,10 +52,11 @@
 			  marker.setAnimation(google.maps.Animation.BOUNCE);
 			}
 		  }
-	
+
 		function geocodeLatLng(geocoder, map, infowindow) {
 			var latlng = uluru;
 			geocoder.geocode({'location': latlng}, function(results, status) {
+        console.log(results);
 			  if (status === 'OK') {
 				if (results[1]) {
 				  map.setZoom(11);
@@ -63,9 +64,9 @@
 					position: latlng,
 					map: mapa
 				  });
-				  console.log(results[9]);
 				  infowindow.setContent(results[0].formatted_address);
 				  infowindow.open(mapa, marker2);
+          console.log(results[9].formatted_address);
 				} else {
 				  window.alert('No results found');
 				}
@@ -74,13 +75,13 @@
 			  }
 			});
 		  }
-			
+
 	/*
 	function repetir() {
 		setInterval(posicion,4000);
 	}
 	*/
-	
+
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCs8GeLs70vepIkA2ZgoerHjkJKKUduFBE&callback=posicion">
