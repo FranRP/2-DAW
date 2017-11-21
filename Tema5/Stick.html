@@ -1,64 +1,273 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <style>
 
-    </style>
-  </head>
-  <body>
-    <script>
+<head>
+  <meta charset="utf-8">
+  <title>Sticky Notes</title>
+</head>
+<style media="screen">
 
-//--------------------------------------------- MODELO
+  body {
+    background-image: url('madera.jpg');
+  }
 
-    class Stick {
-      constructor(titulo, texto, hora){
-        this.titulo = titulo;
-        this.texto = texto;
-        this.hora = hora
-      }
+  .nota {
+    background-color: rgb(255, 255, 255);
+    width: 300px;
+    border: 1px solid;
+    height: 300px;
+    box-shadow: 5px 5px 2px rgb(86, 91, 83);
+  }
+
+
+  textarea {
+    background-color: rgb(255, 255, 255);
+    border: none;
+    width: 95%;
+    height: 45%;
+    padding: 2%;
+  }
+
+  h4 {
+    background-color: rgb(0, 0, 0);
+    color: white;
+    height: 10%;
+    padding: 2%;
+  }
+
+  .borrado {
+    float: right;
+    position: absolute;
+    left:250px;
+    bottom:243px;
+  }
+
+  p {
+    padding: 2%;
+    text-align: center;
+    text-shadow: -1px -1px 1px #ffffff, 1px 1px 1px #ffffff, -1px 1px 1px #ffffff, 1px -1px 1px #ffffff;
+  }
+
+  .chinche {
+    position:absolute;
+    bottom: 250px;
+    left: 93px;
+    width: 90px;
+    height: 80px;
+  }
+
+
+  .nota:hover {
+    animation-name: animacion;
+    animation-duration: 15s;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes animacion {
+    from {
+      background-color: rgb(255, 255, 255);
+      width: 300px;
+      border: 1px solid;
+      height: 300px;
+      box-shadow: 5px 5px 2px rgb(86, 91, 83);
     }
-
-    class ModeloDatos{
-
-        constructor(){
-            this.stickes = new Array();
-            this.seleccionado = null;
-        }
-
-        crearNotas(titulo, texto, hora) {
-          this.stickes.push(new Stick(titulo, texto, hora));
-        }
-
-        set stickSeleccionado(numero){
-            this.seleccionado = this.stickes[numero];
-        }
-
-        get stickSeleccionado(){
-            return this.seleccionado;
-        }
+    10% {
+      transform: scale(1.1,1.1);
     }
-
-
-//--------------------------------------------- VISTA
-
-  class listaSticks {
-    constructor(controlador) {
-      this.controlador = controlador;
-      this.crear();
-    }
-
-    crear() {
-      var btn = document.createElement("div");
-      btn.style.width = "200px";
-      btn.style.height = "200px";
-      btn.style.backgroundColor = "rgb(255, 254, 153)";
-      var parrafo = btn.createElement("p");
-      parrafo.innerHTML = "hola";
-      document.body.appendChild(btn);
+    to {
+      transform: scale(1.1,1.1);
     }
   }
 
 
-    </script>
-  </body>
+
+
+</style>
+
+<body>
+  <script type="text/javascript">
+
+var notaPinchaica = false;
+
+    //MODELO----------------------------------------------------------------------
+
+    class Nota {
+      constructor(titulo, texto, id) {
+        this.titulo = titulo;
+        this.texto = texto;
+        this.id = id;
+        this.hora = new Date();
+        this.notaPinchada = false;
+        this.fechaTotal = new Date();
+        this.fecha = this.hora.getDate() + '/' + this.hora.getMonth() + '/' + this.hora.getFullYear() + ' ' + this.hora.getHours() + ':' + this.hora.getMinutes() + ':' + this.hora.getSeconds();
+      }
+    }
+
+
+    class ListaNotas {
+      constructor() {
+        this.id = 0;
+        this.seleccionado = null;
+        this.notas = [];
+      }
+      añadirNota(nota) {
+        this.notas.push(nota);
+      }
+    }
+
+
+var cont = 0;
+
+
+    //VISTA-----------------------------------------------------------------------
+
+    class notaView {
+      constructor(nota) {
+        this.horas = 0;
+        this.minutos = 0;
+        this.segundos = 0;
+        this.cont = 0;
+        this.nota = document.createElement('div');
+        this.nota.setAttribute('class', 'nota');
+        this.nota.setAttribute('onmousedown','controlador.agarrar(this); controlador.tomarDatos(event)');
+        this.nota.setAttribute('id', controlador.ListaNotas.id);
+        this.nota.style.position = 'absolute';
+        this.nota.style.left = '200px';
+        this.nota.style.top = '200px';
+        document.body.appendChild(this.nota);
+        this.tituloVista = document.createElement('h4');
+        this.nota.appendChild(this.tituloVista);
+        this.textoVista = document.createElement('textarea');
+        this.textoVista.setAttribute('onblur','controlador.actualizar(this)');
+        this.nota.appendChild(this.textoVista);
+        this.tituloVista.innerHTML = nota.titulo+'<br>'+controlador.notica.fecha;
+        this.botonBorrado = document.createElement('img');
+        this.botonBorrado.setAttribute('src','equis.png');
+        this.botonBorrado.setAttribute('width','100px');
+        this.botonBorrado.setAttribute('height','100px');
+        this.botonBorrado.setAttribute('class','borrado');
+        this.botonBorrado.setAttribute('onclick','controlador.borrar(this)');
+        this.botonBorrado.innerHTML = 'X';
+        this.tituloVista.appendChild(this.botonBorrado);
+        this.textoVista.innerHTML = nota.texto;
+        this.hora = document.createElement('p');
+        this.hora.innerHTML = 'Han pasado: <br>'+this.horas+' horas, '+this.minutos+' minutos y '+this.segundos+' segundos';
+        this.hora.style.color = 'black';
+        this.nota.appendChild(this.hora);
+        this.chin = document.createElement('img');
+        this.chin.setAttribute('src','chincheta.png');
+        this.chin.setAttribute('class','chinche');
+        this.nota.appendChild(this.chin);
+        this.x = setInterval( () => { this.mostrarFecha();}, 1000);
+      }
+
+      mostrarFecha() {
+        this.hora.innerHTML = 'Han pasado: <br>'+this.horas+' horas, '+this.minutos+' minutos y '+this.segundos+' segundos';
+        this.segundos += 1;
+        if (this.segundos == 60) {
+          this.minutos += 1;
+          this.segundos = 0;
+        }
+        if (this.minutos == 60) {
+          this.horas += 1;
+          this.minutos = 0;
+        }
+      }
+
+    }
+
+
+
+    class botonazo {
+      constructor(controlador) {
+        this.boton = document.createElement('button');
+        this.boton.setAttribute('type','button');
+        this.boton.setAttribute('onclick','controlador.nuevaNota()');
+        this.boton.setAttribute('name','notica');
+        document.body.appendChild(this.boton);
+        document.getElementsByTagName("button")[0].innerHTML = "Crear nota";
+
+      }
+
+    }
+
+
+    //CONTROLADOR-----------------------------------------------------------------
+    class controlador {
+      constructor() {
+        this.botoncico = new botonazo(this);
+        this.ListaNotas = new ListaNotas();
+        this.notica;
+        this.nv;
+        this.divAManejar;
+        this.startx;
+        this.starty;
+        this.offsetX;
+        this.offsetY;
+      }
+
+      nuevaNota() {
+        let titulo = prompt('Dime el título')
+        this.notica = new Nota(titulo, 'Escribe aquí lo que desees', this.ListaNotas.id);
+        console.log(this.ListaNotas.id);
+        this.nv = new notaView(this.notica,this);
+        this.ListaNotas.añadirNota(this.notica);
+        this.ListaNotas.id++;
+      }
+
+      agarrar(elemento) {
+        notaPinchaica = true;
+        this.divAManejar = elemento;
+      }
+
+      tomarDatos(event) {
+        this.startx = event.clientX;
+        this.starty = event.clientY;
+        this.offsetX = parseInt(this.divAManejar.style.left);
+        this.offsetY = parseInt(this.divAManejar.style.top);
+        console.log(this.offsetX);
+        console.log(this.startx);
+
+      }
+
+
+
+      borrar(elemento) {
+        var padre = elemento.parentNode.parentNode;
+        elemento.parentNode.parentNode.remove();
+        this.ListaNotas.notas.splice(padre.id,1);
+      }
+
+      moverse(e) {
+        if (notaPinchaica == true) {
+          this.divAManejar.style.top = this.offsetY + e.clientY - this.starty+'px';
+          this.divAManejar.style.left = this.offsetX + e.clientX - this.startx+'px';
+          }
+      }
+
+      actualizar(elem) {
+        console.log(elem.value);
+        var x = elem.parentNode;
+        this.ListaNotas.notas[x.id].texto = elem.value;
+      }
+    }
+
+
+window.onload = () => {
+    controlador = new controlador();
+  }
+
+document.addEventListener('mousemove', function(e) {
+  controlador.moverse(e);
+}, false);
+
+window.onmouseup = function() {
+  notaPinchaica = false;
+}
+
+
+  </script>
+
+</body>
+
 </html>

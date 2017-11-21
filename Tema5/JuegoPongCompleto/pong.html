@@ -199,9 +199,9 @@
 
     fasttofurious(parametro) {
       if (parametro == 'positivo') {
-        this.pasox += 0.25;
+        this.pasox += 0.45;
       } else {
-        this.pasox -= 0.25;
+        this.pasox -= 0.45;
 
       }
 
@@ -236,7 +236,7 @@
         p.movimiento();
       } if ((palaxiz - posicionx >= -40) && ((posiciony >= palayiz - 30) && (posiciony <= palayiz + 130))){
         this.pasox *= -1; p.movimiento(); p.fasttofurious('positivo');
-      } if ((palaxder - posicionx <= 35) && ((posiciony >= palayder - 30) && (posiciony <= palayder + 130))){
+      } if ((palaxder - posicionx <= 25) && ((posiciony >= palayder - 30) && (posiciony <= palayder + 130))){
         this.pasox *= -1; p.movimiento(); p.fasttofurious('negativo');
       } if ((posiciony <= 20) || (posiciony >= 450)){
         this.pasoy *= -1; p.movimiento();
