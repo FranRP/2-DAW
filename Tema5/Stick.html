@@ -138,7 +138,7 @@ var cont = 0;
         this.tituloVista = document.createElement('h4');
         this.nota.appendChild(this.tituloVista);
         this.textoVista = document.createElement('textarea');
-        this.textoVista.setAttribute('onblur','controlador.actualizar(this)');
+        this.textoVista.setAttribute('onchange','controlador.actualizar(this)');
         this.nota.appendChild(this.textoVista);
         this.tituloVista.innerHTML = nota.titulo+'<br>'+controlador.notica.fecha;
         this.botonBorrado = document.createElement('img');
@@ -248,7 +248,12 @@ var cont = 0;
       actualizar(elem) {
         console.log(elem.value);
         var x = elem.parentNode;
-        this.ListaNotas.notas[x.id].texto = elem.value;
+        for (var elemento of this.ListaNotas.notas) {
+          if (elemento.id == x.id) {
+            elemento.texto = elem.value;
+          }
+        }
+
       }
     }
 
