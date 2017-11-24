@@ -1,0 +1,75 @@
+<html>
+  <head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+        // Create the data table.
+        var data = google.visualization.arrayToDataTable([
+          ['Partido','Votos'],
+          ['PP', 137],
+          ['PSOE', 85],
+          ['Podemos', 71],
+          ['Ciudadanos', 32],
+          ['Animalista',8]
+        ], false);
+
+        var data2 = google.visualization.arrayToDataTable([
+          ['Partido','Votos'],
+          ['PP', 67],
+          ['PSOE', 35],
+          ['Podemos', 120],
+          ['Ciudadanos', 72],
+          ['Animalista',230]
+        ], false);
+
+        console.log(data2);
+
+        // Set chart options
+        var options = {'title':'Votos elecciones 2016',
+                       'width':700,
+                       'height':300,
+                       'animation':{ duration: 1000, easing: 'out',}
+                     };
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+        var valor = 0;
+
+        var lista = [data,data2];
+        chart.draw(data, options);
+
+
+        setInterval(function() {
+          for (var i = 0; i < 5; i++) {
+            lista[valor].setCell(i, 1, Math.random() * (50 + 20));
+          }
+          chart.draw(lista[valor],options);
+          if (valor == 0) {
+            valor = 1;
+          } else {
+            valor = 0;
+          }
+        }, 1000);
+
+
+      }
+    </script>
+  </head>
+
+  <body>
+    <!--Div that will hold the pie chart-->
+    <div id="chart_div"></div>
+
+  </body>
+</html>
