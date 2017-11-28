@@ -140,7 +140,7 @@ var cont = 0;
         this.textoVista = document.createElement('textarea');
         this.textoVista.setAttribute('onchange','controlador.actualizar(this)');
         this.nota.appendChild(this.textoVista);
-        this.tituloVista.innerHTML = nota.titulo+'<br>'+controlador.notica.fecha;
+        this.tituloVista.innerHTML = nota.titulo+'<br>'+nota.fecha;
         this.botonBorrado = document.createElement('img');
         this.botonBorrado.setAttribute('src','equis.png');
         this.botonBorrado.setAttribute('width','100px');
@@ -210,9 +210,11 @@ var cont = 0;
         let titulo = prompt('Dime el título')
         this.notica = new Nota(titulo, 'Escribe aquí lo que desees', this.ListaNotas.id);
         console.log(this.ListaNotas.id);
-        this.nv = new notaView(this.notica,this);
+        this.nv = new notaView(this.notica);
         this.ListaNotas.añadirNota(this.notica);
         this.ListaNotas.id++;
+        localStorage.setItem("Coleccion",JSON.stringify(this.ListaNotas.notas));
+
       }
 
       agarrar(elemento) {
@@ -234,8 +236,14 @@ var cont = 0;
 
       borrar(elemento) {
         var padre = elemento.parentNode.parentNode;
-        elemento.parentNode.parentNode.remove();
-        this.ListaNotas.notas.splice(padre.id,1);
+        for (var elem of this.ListaNotas.notas) {
+          if (elem.id == padre.id) {
+            console.log(this.ListaNotas.notas.indexOf(elem));
+            elemento.parentNode.parentNode.remove();
+            localStorage.setItem("Coleccion",JSON.stringify(this.ListaNotas.notas));
+          }
+        }
+
       }
 
       moverse(e) {
@@ -253,14 +261,33 @@ var cont = 0;
             elemento.texto = elem.value;
           }
         }
+        localStorage.setItem("Coleccion",JSON.stringify(this.ListaNotas));
+
 
       }
     }
 
 
+
 window.onload = () => {
+  let retrieveData;
+  let datos;
+  if (Storage != "") {
+    retrieveData = localStorage.getItem("Coleccion");
+    datos = JSON.parse(retrieveData);
+    console.log(datos);
     controlador = new controlador();
-  }
+    if (datos != null) {
+      for (var i = 0; i < datos.length; i++) {
+        controlador.ListaNotas.añadirNota(datos[i]);
+        controlador.ListaNotas.id = datos[datos.length-1].id;
+        controlador.nv = new notaView(datos[i]);
+      }
+    }
+} else {
+  controlador = new controlador();
+}
+}
 
 document.addEventListener('mousemove', function(e) {
   controlador.moverse(e);
