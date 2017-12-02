@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+  <style media="screen">
+    p {
+      padding:1%;
+      border: 1px solid;
+    }
+  </style>
+</head>
+<body>
+
+<div id="demo">
+<h1>Correo electrónico</h1>
+</div>
+
+<script>
+
+var almacen = [];
+
+function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      let contenido = JSON.parse(this.responseText);
+      var todosp = document.getElementsByTagName('p');
+      if (todosp.length == 0) {
+        for (let i = 0; i < contenido['emails'].length; i++) {
+          let correico = 'Ha recibido un correo de '+contenido['emails'][i]['mail']+' a las '+contenido['emails'][i]['date']+' y el mensaje dice: '+contenido['emails'][i]['message'];
+          var nuevoCorreo = document.createElement("p");
+          almacen.push(correico);
+          nuevoCorreo.innerHTML = correico;
+          document.body.appendChild(nuevoCorreo);
+          console.log(contenido['emails'].length);
+        }
+      } else {
+        for (let i = 0; i < contenido['emails'].length; i++) {
+          let comprobar = 'Ha recibido un correo de '+contenido['emails'][i]['mail']+' a las '+contenido['emails'][i]['date']+' y el mensaje dice: '+contenido['emails'][i]['message'];
+          if (almacen.indexOf(comprobar) == -1) {
+            var nuevoCorreo = document.createElement("p");
+            almacen.push(comprobar);
+            nuevoCorreo.innerHTML = comprobar;
+            document.body.appendChild(nuevoCorreo);
+          }
+        }
+      }
+    }
+  };
+  xhttp.open("GET", "corres.json", true);
+  xhttp.send();
+}
+
+setInterval(function () {
+  loadDoc();
+}, 1000);
+
+</script>
+
+</body>
+</html>

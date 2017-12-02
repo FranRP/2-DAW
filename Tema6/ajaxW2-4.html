@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+
+  <style media="screen">
+
+
+    input{
+      margin-bottom: 30px;
+    }
+
+    #opciones {
+      display:none;
+    }
+
+    #uno,#dos {
+      text-align: center;
+      border: 1px solid;
+      width:5%;
+    }
+
+  </style>
+
+</head>
+<body>
+
+<div id="demo">
+<h1>NOMBRE DE USUARIO</h1>
+
+    <input type="text" id="name"/>
+    <div class="button">
+    <button type="submit" onclick="tomarValor()">Enviar</button>
+</div>
+<br>
+
+  <p id="informacion"></p>
+<br>
+<div class="">
+ <div id="opciones">
+    <p>Quizás te interese más:</p>
+    <p id="uno" onclick="alerta(this)"></p>
+    <p id="dos" onclick="alerta(this)"></p>
+  </div>
+
+
+</div>
+
+
+<script>
+
+var valor;
+var mensaje;
+
+
+function tomarValor() {
+  opciones = document.getElementById('opciones');
+  uno = document.getElementById('uno');
+  dos = document.getElementById('dos');
+  valor = document.getElementById('name').value;
+  mensaje = document.getElementById('informacion');
+
+  console.log(valor);
+  loadDoc();
+}
+
+function alerta(elem) {
+  valor = document.getElementById('name');
+  valor.value = elem.innerHTML;
+  console.log(elem);
+  nuevovalor = document.getElementById(elem.content);
+  console.log(nuevovalor);
+  opciones.style.display = 'none';
+  mensaje.innerHTML = 'Ese nombre está disponible';
+  mensaje.style.color = 'green';
+
+}
+
+function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  console.log(mensaje);
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      let variable = JSON.parse(this.responseText);
+      console.log(variable['nombre']);
+      if (valor != '') {
+        if(variable['validar'] == 'si'){
+          opciones.style.display = 'block';
+          mensaje.innerHTML = 'Ese nombre no está disponible, prueba otro';
+          uno.innerHTML = variable['nombre'][0];
+          dos.innerHTML = variable['nombre'][1];
+          mensaje.style.color = 'red';
+        } else {
+          mensaje.innerHTML = 'Ese nombre está disponible';
+          opciones.style.display = 'none';
+          mensaje.style.color = 'green';
+        }
+      }
+    }
+  };
+  xhttp.open("GET", "ajaxW2-4.php?s="+valor, true);
+  xhttp.send();
+}
+
+</script>
+
+</body>
+</html>

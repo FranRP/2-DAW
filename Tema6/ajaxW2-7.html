@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+
+  <style media="screen">
+
+
+    input{
+      margin-bottom: 30px;
+    }
+
+    #mapa {
+     height: 400px;
+     width: 100%;
+    }
+
+
+  </style>
+
+</head>
+<body>
+
+<div id="demo">
+<h1>SOLICITAR MUNICIPIO</h1>
+
+    <input type="text" id="name"/>
+    <div class="button">
+    <button type="submit" onclick="loadDoc()">Enviar</button>
+</div>
+<br>
+  <p id="informacion"></p>
+<br>
+</div>
+<br>
+<div id="mapa">
+
+</div>
+
+
+<script>
+
+var uluru;
+var marker;
+var mapa;
+var booool = false;
+var geocoder;
+var infowindow;
+
+var valor;
+var mensaje;
+
+
+class informacionLugar {
+  constructor(latitud, longitud, codigoPostal) {
+    this.latitud = latitud;
+    this.longitud = longitud;
+    this.codigoPostal = codigoPostal;
+    uluru = {lat: this.latitud, lng: this.longitud};
+    this.obtener();
+    }
+
+  darDatos() {
+    var latlng = uluru;
+    var parrafo = document.getElementById('localisasion');
+    geocoder.geocode({'location': latlng}, function(results, status) {
+      console.log(results);
+      parrafo.innerHTML = 'Eres del país: '+results[6].formatted_address+' y tu dirección es: '+results[0].formatted_address;
+    });
+
+  }
+
+
+  obtener() {
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(this.dibujaMapa);
+    } else {
+        document.write('Desactivado');
+    }
+  }
+
+
+  dibujaMapa(position) {
+    mapa = new google.maps.Map(document.getElementById('mapa'), {
+      zoom: 7,
+      center: uluru
+    });
+  }
+
+  dibujaMarcador() {
+    marker = new google.maps.Marker({
+      map: mapa,
+      draggable: true,
+      position: uluru
+    });
+  }
+
+  escribeEtiqueta() {
+    let codigo = this.codigoPostal;
+    console.log(codigo);
+    var latlng = uluru;
+    var map = mapa
+    console.log('hola');
+    geocoder.geocode({'location': latlng}, function(results, status) {
+      console.log(results);
+      if (status === 'OK') {
+      if (results[1]) {
+        map.setZoom(7);
+        infowindow.setContent('El codigo postal es: '+codigo);
+        infowindow.open(mapa, marker);
+
+      } else {
+        window.alert('No results found');
+      }
+      } else {
+      window.alert('Geocoder failed due to: ' + status);
+      }
+    });
+  }
+
+}
+
+
+
+function loadDoc() {
+  geocoder = new google.maps.Geocoder;
+  infowindow = new google.maps.InfoWindow;
+  valor = document.getElementById('name').value;
+  mensaje = document.getElementById('informacion');
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      let variable = JSON.parse(this.responseText);
+      if (valor != '') {
+        mensaje.innerHTML = 'El código postal del municipio es: '+variable['CodigoPostal']+' y su lon/lat es: '+variable['Lon']+' : '+variable['Lat'];
+        p = new informacionLugar(variable['Lon'], variable['Lat'], variable['CodigoPostal']);
+      }
+    }
+  };
+  xhttp.open("GET", "ajaxW2-7.php?s="+valor, true);
+  xhttp.send();
+}
+
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCs8GeLs70vepIkA2ZgoerHjkJKKUduFBE&">
+</script>
+
+</body>
+</html>
