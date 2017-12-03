@@ -1,7 +1,5 @@
 
 <?php
-
-
 $valorobtenido = $_GET['s'];
 
 $mbd = new PDO('mysql:host=localhost:3306;dbname=postal', 'root', 'noteimporta');
@@ -14,7 +12,4 @@ echo '{
        "Lat": '.$result['lat'].',
        "Lon": '.$result['lon'].'
      }';
-
-
-
 ?>

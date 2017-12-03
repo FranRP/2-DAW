@@ -33,9 +33,12 @@
 <br>
 </div>
 <br>
+<p id="prediccion"></p>
 <div id="mapa">
 
 </div>
+
+
 
 
 <script>
@@ -46,10 +49,10 @@ var mapa;
 var booool = false;
 var geocoder;
 var infowindow;
-
+var variable2;
 var valor;
 var mensaje;
-
+var guardarcodigo;
 
 class informacionLugar {
   constructor(latitud, longitud, codigoPostal) {
@@ -108,6 +111,7 @@ class informacionLugar {
         map.setZoom(7);
         infowindow.setContent('El codigo postal es: '+codigo);
         infowindow.open(mapa, marker);
+        console.log(results);
 
       } else {
         window.alert('No results found');
@@ -134,11 +138,39 @@ function loadDoc() {
       if (valor != '') {
         mensaje.innerHTML = 'El código postal del municipio es: '+variable['CodigoPostal']+' y su lon/lat es: '+variable['Lon']+' : '+variable['Lat'];
         p = new informacionLugar(variable['Lon'], variable['Lat'], variable['CodigoPostal']);
+        guardarcodigo = variable['CodigoPostal'];
+        guardarcodigo = guardarcodigo.toString().slice(0,2);
+        predict();
       }
     }
   };
   xhttp.open("GET", "ajaxW2-7.php?s="+valor, true);
   xhttp.send();
+}
+
+function predict() {
+  var xhttp2 = new XMLHttpRequest();
+  xhttp2.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      variable2 = JSON.parse(this.responseText);
+      predict2();
+    }
+  };
+  xhttp2.open("GET", `https://opendata.aemet.es/opendata/api/prediccion/provincia/hoy/${guardarcodigo}/?api_key=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraXJ0YXNoYmxvZ0BnbWFpbC5jb20iLCJqdGkiOiI3OGIyZjQwZC04YTA5LTQxYWUtODNiZC1jM2ZlZGI2ZjVmNjUiLCJpc3MiOiJBRU1FVCIsImlhdCI6MTUxMjI5MzU0NSwidXNlcklkIjoiNzhiMmY0MGQtOGEwOS00MWFlLTgzYmQtYzNmZWRiNmY1ZjY1Iiwicm9sZSI6IiJ9.MiLiUQWu1rKgYTNdcm6g_XFitvQ452lVSDXBuPcldGo`, true);
+  xhttp2.send();
+}
+
+function predict2() {
+  var resultado = document.getElementById('prediccion');
+  var xhttp3 = new XMLHttpRequest();
+  xhttp3.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      let variable3 = this.responseText;
+      resultado.innerHTML = variable3;
+    }
+  };
+  xhttp3.open("GET", variable2.datos, true);
+  xhttp3.send();
 }
 
 </script>
