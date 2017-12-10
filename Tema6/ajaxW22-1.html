@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Ejercicio 5</title>
+  <style>
+  body {
+    box-sizing: border-box;
+    padding: 1%;
+    background-color: rgb(255, 255, 116);
+    color: rgb(0, 0, 0)
+  }
+
+  h1 {
+    color: rgb(0, 0, 0);
+  }
+
+  * {
+    font-family: sans-serif;
+  }
+  h3 {
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+  }
+
+  #mapa {
+   height: 400px;
+   width: 50%;
+  }
+
+
+  </style>
+</head>
+
+<body onload="loadDoc()">
+
+  <h1>Información meteorológica</h1>
+  <h3>Provincias</h3>
+  <select id="provincias">
+  </select>
+  <button type="button" name="boton" onclick="tomar()">Comprobar</button>
+
+<br>
+<br>
+
+  <h3>Municipios</h3>
+  <div id="total">
+
+  <select id="muni">
+  </select>
+  <button type="button" name="boton" onclick="tomar2()">Dar tiempo</button>
+
+</div>
+
+</div>
+
+<br>
+<h4>Codigos postales:</h4>
+<p id="codigopostal"></p>
+
+<div id="mapa">
+
+</div>
+
+<br>
+<p id="prediccion"></p>
+
+  <script type="text/javascript">
+
+    var mapita;
+    var uluru;
+    var marker;
+    var mapa;
+    var booool = false;
+    var geocoder;
+    var infowindow;
+    var vari;
+    var codigos;
+    var guardarcodigo;
+
+    function loadDoc() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          let variable = JSON.parse(this.responseText);
+          for (var i = 0; i < variable.length; i++) {
+            provincias.innerHTML += '<option value='+variable[i][0]+'>'+variable[i][0]+'</option>';
+          }
+        }
+      };
+      xhttp.open("GET", "ajaxW22-1.php", true);
+      xhttp.send();
+    }
+
+    function tomar() {
+      vari = document.getElementById('provincias').value;
+      municipios();
+    }
+
+    function tomar2() {
+      codigos = document.getElementById('muni').value;
+      codigo();
+    }
+
+
+    function municipios() {
+      var bloque = document.getElementById('muni');
+      var total = document.getElementById('total');
+      bloque.remove();
+      var creacion = document.createElement('select');
+      creacion.setAttribute('id','muni');
+      total.appendChild(creacion);
+
+      var xhttp2 = new XMLHttpRequest();
+      xhttp2.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          let variable = JSON.parse(this.responseText);
+          console.log(variable);
+          for (var i = 0; i < variable.length; i++) {
+            muni.innerHTML += '<option value='+variable[i][0]+'>'+variable[i][0]+'</option>';
+          }
+        }
+      };
+      xhttp2.open("GET", "ajaxW22-1-1.php?s="+vari, true);
+      xhttp2.send();
+    }
+
+    function codigo() {
+      geocoder = new google.maps.Geocoder;
+      infowindow = new google.maps.InfoWindow;
+      var xhttp3 = new XMLHttpRequest();
+      xhttp3.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          let variable = JSON.parse(this.responseText);
+          codigopostal.innerHTML = 'Longitud: '+variable['Lon']+' Latitud: '+variable['Lat']+' CodigoPostal: '+variable['CodigoPostal'];
+          mapita = new informacionLugar(variable['Lon'], variable['Lat'], variable['CodigoPostal']);
+          guardarcodigo = variable['CodigoPostal'];
+          guardarcodigo = guardarcodigo.toString().slice(0,2);
+          console.log(guardarcodigo);
+          predict();
+
+        }
+      };
+      xhttp3.open("GET", "ajaxW22-1-2.php?s="+codigos, true);
+      xhttp3.send();
+    }
+
+
+
+//----------------------------------------------------------------------------------
+
+    class informacionLugar {
+      constructor(latitud, longitud, codigoPostal) {
+        this.latitud = latitud;
+        this.longitud = longitud;
+        this.codigoPostal = codigoPostal;
+        uluru = {lat: this.latitud, lng: this.longitud};
+        this.obtener();
+        }
+
+      darDatos() {
+        var latlng = uluru;
+        var parrafo = document.getElementById('localisasion');
+        geocoder.geocode({'location': latlng}, function(results, status) {
+          console.log(results);
+          parrafo.innerHTML = 'Eres del país: '+results[6].formatted_address+' y tu dirección es: '+results[0].formatted_address;
+        });
+
+      }
+
+
+      obtener() {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(this.dibujaMapa);
+        } else {
+            document.write('Desactivado');
+        }
+      }
+
+
+      dibujaMapa(position) {
+        mapa = new google.maps.Map(document.getElementById('mapa'), {
+          zoom: 7,
+          center: uluru
+        });
+        marker = new google.maps.Marker({
+          map: mapa,
+          draggable: true,
+          position: uluru
+        });
+      }
+
+
+      escribeEtiqueta() {
+        let codigo = this.codigoPostal;
+        console.log(codigo);
+        var latlng = uluru;
+        var map = mapa
+        console.log('hola');
+        geocoder.geocode({'location': latlng}, function(results, status) {
+          console.log(results);
+          if (status === 'OK') {
+          if (results[1]) {
+            map.setZoom(7);
+            infowindow.setContent('El codigo postal es: '+codigo);
+            infowindow.open(mapa, marker);
+            console.log(results);
+
+          } else {
+            window.alert('No results found');
+          }
+          } else {
+          window.alert('Geocoder failed due to: ' + status);
+          }
+        });
+      }
+
+    }
+    //----------------------------------------------------------------------------------
+
+var variable2;
+
+    function predict() {
+      var xhttp2 = new XMLHttpRequest();
+      xhttp2.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          variable2 = JSON.parse(this.responseText);
+          console.log(variable2);
+          predict2();
+        }
+      };
+      xhttp2.open("GET", `https://opendata.aemet.es/opendata/api/prediccion/provincia/hoy/${guardarcodigo}/?api_key=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraXJ0YXNoYmxvZ0BnbWFpbC5jb20iLCJqdGkiOiI3OGIyZjQwZC04YTA5LTQxYWUtODNiZC1jM2ZlZGI2ZjVmNjUiLCJpc3MiOiJBRU1FVCIsImlhdCI6MTUxMjI5MzU0NSwidXNlcklkIjoiNzhiMmY0MGQtOGEwOS00MWFlLTgzYmQtYzNmZWRiNmY1ZjY1Iiwicm9sZSI6IiJ9.MiLiUQWu1rKgYTNdcm6g_XFitvQ452lVSDXBuPcldGo`, true);
+      xhttp2.send();
+    }
+
+
+    function predict2() {
+      var resultado = document.getElementById('prediccion');
+      var xhttp3 = new XMLHttpRequest();
+      xhttp3.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          let variable3 = this.responseText;
+          resultado.innerHTML = variable3;
+        }
+      };
+      xhttp3.open("GET", variable2.datos, true);
+      xhttp3.send();
+    }
+
+
+  </script>
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCs8GeLs70vepIkA2ZgoerHjkJKKUduFBE&">
+  </script>
+
+</body>
+
+</html>
