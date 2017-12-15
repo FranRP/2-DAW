@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ejercicio 1</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  </head>
+  <body>
+
+        <ol>
+          <li>Lista1</li>
+          <ul>
+            <li>Tortilla</li>
+            <li>Jamón</li>
+            <li>Queso</li>
+         </ul>
+        </ol>
+      <ol>
+        <li>Lista2</li>
+        <ul>
+          <li>Coca Cola</li>
+          <li>Leche</li>
+          <li>Té</li>
+        </ul>
+
+      </ol>
+    <button type="button" name="button" onclick="ocultar()">Borrar</button>
+
+    <script type="text/javascript">
+
+      function ocultar() {
+        $(" ul li:first-child" ).hide();
+      }
+
+
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ejercicio 1</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <style media="screen">
+      div {
+        height: 50px;
+        width: 50px;
+        background-color: black;
+        margin-bottom: 30px;
+        display:none;
+      }
+    </style>
+  </head>
+  <body>
+    <button type="button" name="button1" id="boton1">Activar animación</button>
+    <br><br>
+
+      <div class="paraanimar1">
+
+      </div>
+
+
+      <div class="paraanimar2">
+
+      </div>
+
+      <div class="paraanimar3">
+
+      </div>
+
+      <div class="paraanimar4">
+
+      </div>
+
+      <div class="paraanimar5">
+
+      </div>
+
+
+    <script type="text/javascript">
+
+    var cont = 0;
+
+    $(document).ready(function(){
+    	$("#boton1").click(function(){
+    		$(".paraanimar1").fadeIn("fast");
+        $(".paraanimar2").fadeIn("slow");
+        $(".paraanimar3").fadeIn(800);
+        $(".paraanimar4").fadeIn(2000);
+        $(".paraanimar5").fadeIn(4000);
+    	});
+
+    });
+
+    </script>
+
+  </body>
+</html>

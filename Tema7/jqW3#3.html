@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Ejercicio 1</title>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <style media="screen">
+    table td {
+      border: 1px solid;
+    }
+
+    td {
+      text-align: center;
+      width: 100px;
+      height: 100px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <table>
+    <tr>
+      <td>ddd</td>
+      <td>dddd</td>
+      <td>ssssfd</td>
+      <td></td>
+      <td>ssssfd</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>ssssfd</td>
+      <td></td>
+      <td></td>
+      <td>ssssfd</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>ssssfd</td>
+      <td>ssssfd</td>
+      <td></td>
+      <td>ssssfd</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>ssssfd</td>
+      <td></td>
+      <td>ssssfd</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>ssssfd</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>ssssfd</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>ssssfd</td>
+      <td></td>
+      <td>ssssfd</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>ssssfd</td>
+      <td>ssssfd</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>ssssfd</td>
+      <td></td>
+    </tr>
+  </table>
+  <script type="text/javascript">
+    //$('td').attr('style', 'background-color:rgb(255, 255, 255)');
+    $('td:gt(25)').css('background-color', 'blue');
+    $('td:lt(8)').css('background-color', 'red');
+
+    //$('td[style="background-color:rgb(255, 255, 255)"]').css('background-color','yellow');
+
+    $('td').filter(function() {
+      if($(this).html() == "") {
+        $(this).css('background-color','rgb(255, 237, 0)');
+      }
+    });
+
+
+
+    /*
+          $(document).ready(function(){
+              $("div").mouseenter(function(){
+                $("div").css("background-color", "yellow");
+              });
+              $("p").mouseleave(function(){
+                $("div").css("background-color", "white");
+              });
+          });
+    */
+  </script>
+
+</body>
+
+</html>
