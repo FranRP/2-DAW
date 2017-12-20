@@ -14,6 +14,7 @@
         position: absolute;
         opacity: 0;
         bottom: 100px;
+        left:800px;
       }
     </style>
   </head>
@@ -36,10 +37,14 @@
 
     $(document).ready(function(){
     	$("#boton1").click(function(){
-        $(".paraanimar1").animate({opacity:"1",left:"200px",backgroundColor: "rgb(255, 0, 0)"},3000);
-        $(".paraanimar1").animate({opacity:"0",top:"400px"},1000);
+        var pos = $('div').css('left');
+        var pos2 = (parseInt(pos) - 200) + 'px';
+        console.log($(".paraanimar1").css("left"));
+        $(".paraanimar1").animate({opacity:"1",left:pos2,backgroundColor: "rgb(255, 0, 0)"},3000);
+        $(".paraanimar1").animate({opacity:"0",top:"200px"},1000);
     	});
       $("#boton2").click(function(){
+        $(".paraanimar1").stop();
         $(".paraanimar1").stop();
       });
 
