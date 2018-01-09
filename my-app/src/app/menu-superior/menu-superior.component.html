@@ -7,6 +7,12 @@
 <button type="button" name="button" (click)="clickeame()">Pincha para sumar clicks</button>
 <p [style.color]="'blue'">El numero de clicks es: {{clicks}}</p>
 
-<ul>
-  <li *ngFor="let objeto of lista">{{objeto}}</li>
-</ul>
+<table>
+  <tr *ngFor="let objeto of elementos">
+    <td>{{objeto.nombre}}</td>
+    <td *ngIf="objeto.estado=='Activo'">Activo</td>
+  </tr>
+</table>
+
+<p [ngClass]="{corta: palabra < cantidad, larga: cantidad < palabra}">{{texto}}</p>
+<input type="text" name="" value="" [(ngModel)]="comprobacion"> <button type="button" name="button" (click)="contador()">Comprobar</button>
