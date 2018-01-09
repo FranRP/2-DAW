@@ -337,7 +337,7 @@
       loadDoc2(id) {
         $(document).ready(function() {
           $.ajax({
-            url: 'http://www.omdbapi.com/?i=' + id + '&apikey=9874a93c',
+            url: 'http://www.omdbapi.com/?i=' + id + '&apikey=9874a93c&plot=full',
             success: function(resp) {
               let variable = resp;
               cont.youtube(variable);
