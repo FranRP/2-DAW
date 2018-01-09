@@ -1,0 +1,1 @@
+      $('.eleccion').append('<iframe type="text/html" width="950" height="400" src="http://www.youtube.com/embed/'+video+'" frameborder="0"></iframe>');
