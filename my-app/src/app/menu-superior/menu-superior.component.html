@@ -2,5 +2,11 @@
   Enlazo datos del .ts {{dato}}
 </p>
 <input type="text" name="" value="" [(ngModel)]="dato">
+<p [hidden]="dato">Esto se modificará al escribir en el input</p>
+<p [hidden]="!dato">Esto se muestra al escribir cualquier cosa en el input</p>
 <button type="button" name="button" (click)="clickeame()">Pincha para sumar clicks</button>
-<p [style.color]="rojo">El numero de clicks es: {{clicks}}</p>
+<p [style.color]="'blue'">El numero de clicks es: {{clicks}}</p>
+
+<ul>
+  <li *ngFor="let objeto of lista">{{objeto}}</li>
+</ul>
