@@ -348,9 +348,8 @@
 
       youtube(titulo) {
         let objeto = titulo;
-        console.log(objeto);
-        let variable = titulo[informacion[0]];
-        console.log('ieee');
+        let variable = 'Trailer oficial '+titulo[informacion[0]];
+        console.log(variable);
         $(document).ready(function() {
           $.ajax({
             url: 'https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&maxResults=1&order=viewCount&type=video&q=' + variable + '&key=AIzaSyAY1AFsbeCgoOQwPo6lC7VcQEykZTJPYYU',
@@ -358,7 +357,6 @@
               let prueba = resp;
               let video = prueba.items[0].id.videoId;
               console.log(video);
-              console.log
               self.vista.elegida(objeto, video);
             }
           });
@@ -393,6 +391,7 @@
         var ancho = 300;
         var alto = 300;
         console.log(objeto);
+        console.log(video);
         $('.eleccion').empty();
         $('.eleccion').css('display', 'flex');
         $('.eleccion').append('<img src="' + objeto.Poster + '"><div class="info"><table></table></div>');
