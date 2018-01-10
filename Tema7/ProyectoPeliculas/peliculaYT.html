@@ -206,6 +206,17 @@
       width: 100%;
     }
 
+    .carga, .carga-eleccion {
+      margin-top: 30px;
+      display:none;
+    }
+
+    .carga img, .carga-eleccion img{
+      border: 0px;
+      width:5%;
+      height: 60px;
+    }
+
   </style>
 </head>
 
@@ -225,12 +236,21 @@
   <div class="oculta">
 
   </div>
+
+  <div class="carga-eleccion">
+    <img src="carga.gif" alt="">
+  </div>
+
   <div class="eleccion">
 
   </div>
 
   <div class="pelis">
 
+  </div>
+
+  <div class="carga">
+    <img src="carga.gif" alt="">
   </div>
 
   <div id="contenedor" style="display:none">
@@ -306,31 +326,38 @@
       }
 
 
+
       loadDoc(pagina) {
+        $('.carga').css('display','block');
         $('.eleccion').empty();
         $('.eleccion').css('display', 'flex');
         var valor = $('input').val();
         let type = $('select').val();
         let str = 'http://www.omdbapi.com/?s=' + valor + '&apikey=9874a93c&page=' + pagina;
+        console.log(str);
         if (type !== 'general') str += '&type=' + type;
         $(document).ready(function() {
-          $.ajax({
-            url: str,
-            success: function(resp) {
-              let variable = resp;
-              let variable2 = variable['Search'];
-              $('.error').empty();
-              if (variable['Response'] != 'False') {
-                for (var i = 0; i < variable['Search'].length; i++) {
-                  var pelicula = new Modelo(variable2[i].imdbID, variable2[i].Title, variable2[i].Poster, variable2[i].Year);
-                  self.almacen.guardar(pelicula);
+          setTimeout(function () {
+            $.ajax({
+              url: str,
+              success: function(resp) {
+                let variable = resp;
+                let variable2 = variable['Search'];
+                $('.error').empty();
+                if (variable['Response'] != 'False') {
+                  for (var i = 0; i < variable['Search'].length; i++) {
+                    var pelicula = new Modelo(variable2[i].imdbID, variable2[i].Title, variable2[i].Poster, variable2[i].Year);
+                    self.almacen.guardar(pelicula);
+                  }
+                  console.log(self.almacen.lista);
+                  self.vista.mostrar(self.almacen);
+                  comprobar = true;
+
                 }
-                console.log(self.almacen.lista);
-                self.vista.mostrar(self.almacen);
-                comprobar = true;
+                $('.carga').css('display','none');
               }
-            }
-          });
+            });
+          }, 1000);
         });
       }
 
@@ -371,12 +398,14 @@
 
     class Vista {
       mostrar(objeto) {
+        console.log(objeto);
         for (var i = 0; i < objeto.lista.length; i++) {
           if (objeto.lista[i].poster == "N/A") {
             objeto.lista[i].poster = "imagen.jpg";
           }
           $('.pelis').append('<div id="' + objeto.lista[i].id + '"><img src="' + objeto.lista[i].poster + '"><h2>' + objeto.lista[i].title + ' - ' + objeto.lista[i].year + '</h2></div>');
         }
+        $('.carga').css('display','none');
         $(".pelis div").click(function() {
           cont.loadDoc2($(this).attr("id"));
           $("html, body").animate({
@@ -388,10 +417,6 @@
 
 
       elegida(objeto, video) {
-        var ancho = 300;
-        var alto = 300;
-        console.log(objeto);
-        console.log(video);
         $('.eleccion').empty();
         $('.eleccion').css('display', 'flex');
         $('.eleccion').append('<img src="' + objeto.Poster + '"><div class="info"><table></table></div>');
