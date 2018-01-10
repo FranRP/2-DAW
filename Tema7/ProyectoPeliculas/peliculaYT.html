@@ -387,8 +387,9 @@
               let video = prueba.items[0].id.videoId;
               console.log(video);
               self.vista.elegida(objeto, video);
+              $('.carga-eleccion').css('display','none');
             }
-            $('.carga-eleccion').css('display','none');
+
           });
         });
       }
