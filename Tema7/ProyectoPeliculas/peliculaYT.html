@@ -199,24 +199,29 @@
     a {
       font-family: "Forgotten Future";
       color: white;
-    	cursor:pointer;
+      cursor: pointer;
     }
 
     .trailer {
       width: 100%;
     }
 
-    .carga, .carga-eleccion {
+    .carga {
       margin-top: 30px;
-      display:block;
+      display: none;
     }
 
-    .carga img, .carga-eleccion img{
+    .carga img {
       border: 0px;
-      width:5%;
+      width: 5%;
       height: 60px;
     }
 
+    #cargando {
+      border: 0px;
+      width: 5%;
+      height: 60px;
+    }
   </style>
 </head>
 
@@ -237,9 +242,6 @@
 
   </div>
 
-  <div class="carga-eleccion">
-    <img src="carga.gif" alt="">
-  </div>
 
   <div class="eleccion">
 
@@ -328,16 +330,16 @@
 
 
       loadDoc(pagina) {
-        $('.carga').css('display','block');
+        $('.carga').css('display', 'block');
         $('.eleccion').empty();
-        $('.eleccion').css('display', 'flex');
+        $('.eleccion').css('display', 'none');
         var valor = $('input').val();
         let type = $('select').val();
         let str = 'http://www.omdbapi.com/?s=' + valor + '&apikey=9874a93c&page=' + pagina;
         console.log(str);
         if (type !== 'general') str += '&type=' + type;
         $(document).ready(function() {
-          setTimeout(function () {
+          setTimeout(function() {
             $.ajax({
               url: str,
               success: function(resp) {
@@ -354,7 +356,7 @@
                   comprobar = true;
 
                 }
-                $('.carga').css('display','none');
+                $('.carga').css('display', 'none');
               }
             });
           }, 2000);
@@ -375,9 +377,13 @@
 
       youtube(titulo) {
         $('.eleccion').empty();
-        $('.carga-eleccion').css('display','block');
+        $('.eleccion').css('display', 'block');
+        $('.eleccion').css('min-height', '418.19px');
+        $('.eleccion').append("<img id='cargando' src='carga.gif' alt=''>");
+
+        $('.carga-eleccion').css('display', 'block');
         let objeto = titulo;
-        let variable = 'Trailer oficial '+titulo[informacion[0]];
+        let variable = 'Trailer oficial ' + titulo[informacion[0]];
         console.log(variable);
         $(document).ready(function() {
           $.ajax({
@@ -386,8 +392,8 @@
               let prueba = resp;
               let video = prueba.items[0].id.videoId;
               console.log(video);
+              $('eleccion').empty();
               self.vista.elegida(objeto, video);
-              $('.carga-eleccion').css('display','none');
             }
           });
         });
@@ -408,7 +414,7 @@
           }
           $('.pelis').append('<div id="' + objeto.lista[i].id + '"><img src="' + objeto.lista[i].poster + '"><h2>' + objeto.lista[i].title + ' - ' + objeto.lista[i].year + '</h2></div>');
         }
-        $('.carga').css('display','none');
+        $('.carga').css('display', 'none');
         $(".pelis div").click(function() {
           cont.loadDoc2($(this).attr("id"));
           $("html, body").animate({
@@ -434,20 +440,20 @@
         $('.eleccion').append('<div class="video"><h2>Ver trailer oficial</h2></div>');
         $(".video").click(function() {
           $('#contenedor').show();
-            $('#flotante').animate({
-              marginTop: "-152px"
-            });
-            $('.trailer').prepend('<iframe type="text/html" width="100%" height="400" src="http://www.youtube.com/embed/'+video+'" frameborder="0"></iframe>');
+          $('#flotante').animate({
+            marginTop: "-152px"
+          });
+          $('.trailer').prepend('<iframe type="text/html" width="100%" height="400" src="http://www.youtube.com/embed/' + video + '" frameborder="0"></iframe>');
         });
         $('#flotante h3 a').click(function() {
           $('#flotante').animate({
             marginTop: "-756px"
           });
 
-        	setTimeout(function(){
-          	$('#contenedor').hide();
+          setTimeout(function() {
+            $('#contenedor').hide();
             $('.trailer').empty();
-          	},500)
+          }, 500)
         });
       }
     }
