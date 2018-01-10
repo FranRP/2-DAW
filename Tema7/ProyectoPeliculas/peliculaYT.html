@@ -374,6 +374,8 @@
       }
 
       youtube(titulo) {
+        $('.eleccion').empty();
+        $('.carga-eleccion').css('display','block');
         let objeto = titulo;
         let variable = 'Trailer oficial '+titulo[informacion[0]];
         console.log(variable);
@@ -385,6 +387,7 @@
               let video = prueba.items[0].id.videoId;
               console.log(video);
               self.vista.elegida(objeto, video);
+              $('.carga-eleccion').css('display','none');
             }
           });
         });
