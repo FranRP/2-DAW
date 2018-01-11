@@ -7,222 +7,8 @@
   <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
   <script type="text/javascript" src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Imprima" rel="stylesheet">
+  <link rel="stylesheet" href="css/films.css">
 
-  <style media="screen">
-    body {
-      text-align: center;
-      box-sizing: border-box;
-      margin: 0;
-      background-color: rgba(227, 255, 250, 0.8);
-    }
-
-
-
-    * {
-      font-family: 'Imprima', sans-serif;
-    }
-
-    @font-face {
-      font-family: "Forgotten Future";
-      src: url(forgottenfuturistbd.otf);
-    }
-
-    .buscador {
-      position: fixed;
-      display: flex;
-      flex-flow: row wrap;
-      align-items: center;
-      width: 100%;
-      padding: 30px;
-      background-image: url('cabecera2.jpg');
-      border-bottom: 2px solid rgb(66, 129, 237);
-      z-index: 80;
-    }
-
-    .oculta {
-      width: 100%;
-      height: 169px;
-    }
-
-
-
-
-
-
-
-    input[type=text] {
-      width: 20%;
-      box-sizing: border-box;
-      border: 3px solid #202020;
-      border-radius: 4px;
-      font-size: 14px;
-      background-color: white;
-      background-image: url('lupa.png');
-      background-size: 20px;
-      background-position: 10px 10px;
-      font-family: 'Fjalla One', sans-serif;
-      background-repeat: no-repeat;
-      padding: 12px 20px 12px 40px;
-      -webkit-transition: width 0.4s ease-in-out;
-      transition: width 0.4s ease-in-out;
-    }
-
-    input[type=text]:focus {
-      width: 50%;
-    }
-
-
-    .pelis {
-      display: flex;
-      flex-flow: row wrap;
-      justify-content: center;
-      align-content: flex-start;
-    }
-
-    .pelis div {
-      margin: 70px 3px 0px 3px;
-      padding-left: 0;
-      padding-right: 0;
-      width: 20%;
-    }
-
-    .pelis div:hover {
-      transform: scale(1.1);
-    }
-
-
-
-    h2 {
-      font-size: 18px;
-      color: black;
-    }
-
-    .buscador h2 {
-      font-size: 34px;
-      font-family: "Forgotten Future";
-      margin-right: 25px;
-    }
-
-    span {
-      color: rgb(0, 232, 255);
-    }
-
-    img {
-      border: 3px solid rgb(0, 94, 255);
-      border-radius: 30px;
-      height: 300px;
-      width: 200px;
-    }
-
-    .error {
-      margin-top: 300px;
-    }
-
-    select {
-      border: 0px solid;
-      background-color: rgba(237, 234, 234, 0);
-      color: white;
-      text-stroke: 1px solid;
-      font-size: 34px;
-    }
-
-    option {
-      background-color: rgb(14, 69, 186);
-    }
-
-    .eleccion {
-      display: none;
-      margin: 30px;
-      flex-flow: row wrap;
-      justify-content: center;
-      align-content: flex-start;
-    }
-
-    .info {
-      margin-left: 30px;
-    }
-
-    table {
-      text-align: left;
-    }
-
-
-    td {
-      font-size: 15px;
-      max-width: 690px;
-      padding-top: 13px;
-    }
-
-    .video {
-      display: flex;
-      justify-content: center;
-      margin-top: 30px;
-      width: 100%;
-    }
-
-    .video h2 {
-      padding: 13px 0px 13px 0px;
-      width: 30%;
-      font-size: 20px;
-      color: rgba(227, 255, 250, 0.8);
-      background-color: #4e4e4e;
-      border-radius: 4px;
-    }
-
-    .video h2:hover {
-      background-color: #00bdd0;
-    }
-
-    #fondo {
-      width: 100%;
-      height: 100%;
-      position: fixed;
-      top: 0px;
-      left: 0px;
-      z-index: 990;
-      opacity: 0.8;
-      background: #000;
-    }
-
-    #flotante {
-      z-index: 999;
-      margin-top: -756px;
-      margin-left: -433px;
-      top: 45%;
-      left: 50%;
-      padding: 12px;
-      position: fixed;
-      width: 800px;
-      border-radius: 3px;
-    }
-
-    a {
-      font-family: "Forgotten Future";
-      color: white;
-      cursor: pointer;
-    }
-
-    .trailer {
-      width: 100%;
-    }
-
-    .carga {
-      margin-top: 30px;
-      display: none;
-    }
-
-    .carga img {
-      border: 0px;
-      width: 5%;
-      height: 60px;
-    }
-
-    #cargando {
-      border: 0px;
-      width: 5%;
-      height: 60px;
-    }
-  </style>
 </head>
 
 <body>
@@ -376,12 +162,6 @@
       }
 
       youtube(titulo) {
-        $('.eleccion').empty();
-        $('.eleccion').css('display', 'block');
-        $('.eleccion').css('min-height', '418.19px');
-        $('.eleccion').append("<img id='cargando' src='carga.gif' alt=''>");
-
-        $('.carga-eleccion').css('display', 'block');
         let objeto = titulo;
         let variable = 'Trailer oficial ' + titulo[informacion[0]];
         console.log(variable);
@@ -416,7 +196,13 @@
         }
         $('.carga').css('display', 'none');
         $(".pelis div").click(function() {
+          $('.eleccion').empty();
           cont.loadDoc2($(this).attr("id"));
+          $('.eleccion').css('display', 'block');
+          $('.eleccion').css('min-height', '418.19px');
+          $('.eleccion').append("<img id='cargando' src='carga.gif' alt=''>");
+
+          $('.carga-eleccion').css('display', 'block');
           $("html, body").animate({
             scrollTop: 0
           }, 600);
