@@ -6,7 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { MenuSuperiorComponent } from './menu-superior/menu-superior.component';
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
+import {ServicioService} from './servicio.service';
 
 
 @NgModule({
@@ -19,7 +20,7 @@ import { FormsModule } from '@angular/forms'
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [ServicioService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

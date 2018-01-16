@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { ServicioService } from '../servicio.service';
 
 @Component({
   selector: 'app-menu-superior',
@@ -18,12 +18,21 @@ texto:string='Si el valor del input tiene menos de 5 caracteres será verde, sin
 
 resultados:any[];
 
-constructor(private http: HttpClient) {}
+constructor(public servicio:ServicioService){}
+
 
 ngOnInit(): void {
-  this.http.get('https://restcountries.eu/rest/v2/name/aruba?fullText=true').subscribe(data => {
+  /*this.http.get('https://restcountries.eu/rest/v2/name/aruba?fullText=true').subscribe(data => {
     console.log(data);
-  });
+  });*/
+}
+
+
+datos() {
+  this.servicio.peticion().subscribe(data => {
+    console.log(data);
+  }
+  );
 }
 
 clickeame(){
