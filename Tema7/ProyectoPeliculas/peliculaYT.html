@@ -190,7 +190,7 @@
         console.log(objeto);
         for (var i = 0; i < objeto.lista.length; i++) {
           if (objeto.lista[i].poster == "N/A") {
-            objeto.lista[i].poster = "imagen.jpg";
+            objeto.lista[i].poster = "/css/imagen.jpg";
           }
           $('.pelis').append('<div id="' + objeto.lista[i].id + '"><img src="' + objeto.lista[i].poster + '"><h2>' + objeto.lista[i].title + ' - ' + objeto.lista[i].year + '</h2></div>');
         }
