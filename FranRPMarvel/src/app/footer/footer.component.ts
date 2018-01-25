@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { SearchService } from '../search.service';
+import {Component, OnInit} from '@angular/core';
+import {SearchService} from '../search.service';
 
 @Component({
   selector: 'app-footer',
@@ -8,14 +8,15 @@ import { SearchService } from '../search.service';
 })
 export class FooterComponent implements OnInit {
 
-  variable:string;
+  variable: string;
 
-  constructor(public servicio:SearchService) { }
+  constructor(public servicio: SearchService) {
+  }
 
   ngOnInit() {
     this.servicio.estilo$.subscribe(data => {
-      this.variable = data;
-    }
+        this.variable = data;
+      }
     )
   }
 

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { routerTransition } from '../router.animations';
+import {Component, OnInit} from '@angular/core';
+import {routerTransition} from '../router.animations';
 
-declare var jquery:any;
-declare var $ :any;
+declare var jquery: any;
+declare var $: any;
 
 @Component({
   selector: 'app-homepage',
@@ -13,19 +13,20 @@ declare var $ :any;
 })
 export class HomepageComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
     $(function () {
-        $(".texto").typed({
-          strings: ["Recuerda ayudar al prójimo, mirar antes de cruzar y tratar siempre con respeto a tus mayores","O haz como tu super héroe favorito, yo, y haz lo que te de la gana"],
-          typeSpeed: 50,
-          startDelay: 600,
-          backSpeed: 60,
-          backDelay: 500,
-          showCursor: false,
-        })
+      $(".texto").typed({
+        strings: ["Recuerda ayudar al prójimo, mirar antes de cruzar y tratar siempre con respeto a tus mayores", "O haz como tu super héroe favorito, yo, y haz lo que te de la gana"],
+        typeSpeed: 50,
+        startDelay: 600,
+        backSpeed: 60,
+        backDelay: 500,
+        showCursor: false,
       })
+    })
   }
 
 }
