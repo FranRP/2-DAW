@@ -1,0 +1,32 @@
+.valores {
+  margin-bottom: 50px;
+  border: 2px solid;
+  background-color: rgb(94, 94, 94);
+}
+
+h1 {
+  font-size: 15px;
+}
+
+div{
+  text-align: center;
+}
+
+img {
+  width: 100%;
+}
+
+.info {
+  padding: 10px;
+
+  text-align: left;
+}
+
+p {
+  font-family: "Forgotten Future";
+}
+
+h4{
+  color: #d71a00;
+  font-family:"marvel";
+}

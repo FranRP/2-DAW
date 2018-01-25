@@ -14,6 +14,9 @@ palabra:any;
 cantidad=5;
 elementos=[{nombre:'Objeto1',estado:'Activo'},{nombre:'Objeto2',estado:'Inactivo'},{nombre:'Objeto3',estado:'Activo'},{nombre:'Objeto4',estado:'Inactivo'}];
 
+
+datoss:any;
+
 texto:string='Si el valor del input tiene menos de 5 caracteres será verde, sino, será rojo';
 
 resultados:any[];
@@ -27,6 +30,9 @@ ngOnInit(): void {
   });*/
 }
 
+probar() {
+  this.servicio.setvariable(this.datoss);
+}
 
 datos() {
   this.servicio.peticion().subscribe(data => {
