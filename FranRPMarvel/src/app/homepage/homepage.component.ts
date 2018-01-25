@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {routerTransition} from '../router.animations';
+import {SearchService} from '../search.service';
 
 declare var jquery: any;
 declare var $: any;
@@ -13,7 +14,7 @@ declare var $: any;
 })
 export class HomepageComponent implements OnInit {
 
-  constructor() {
+  constructor(public servicio: SearchService) {
   }
 
   ngOnInit() {
@@ -27,6 +28,8 @@ export class HomepageComponent implements OnInit {
         showCursor: false,
       })
     })
+
+    this.servicio.setposicion('');
   }
 
 }

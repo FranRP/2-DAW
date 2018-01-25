@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { SearchService } from '../search.service';
+import {Component, OnInit} from '@angular/core';
+import {SearchService} from '../search.service';
 
 @Component({
   selector: 'app-cabecera',
@@ -8,14 +8,22 @@ import { SearchService } from '../search.service';
 })
 export class CabeceraComponent implements OnInit {
 
-  variable:string;
+  variable: string;
+  ruta: any;
 
-  constructor(public servicio:SearchService) { }
+  constructor(public servicio: SearchService) {
+  }
 
   ngOnInit() {
     this.servicio.estilo$.subscribe(data => {
-      this.variable = data;
-    }
+        this.variable = data;
+      }
+    )
+
+    this.servicio.posicion$.subscribe(data => {
+        this.ruta = data;
+
+      }
     )
   }
 

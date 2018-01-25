@@ -32,6 +32,7 @@ export class PersonajesComponent implements OnInit {
         // console.log(data);
       }
     )
+    this.servicio.setposicion('Characters');
   }
 
   mostrarinfo(event) {
