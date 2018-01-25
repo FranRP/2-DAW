@@ -79,3 +79,8 @@ a {
 .breadcrumb-item a {
   color: black;
 }
+
+.panel {
+  justify-content: center;
+  margin:0px;
+}

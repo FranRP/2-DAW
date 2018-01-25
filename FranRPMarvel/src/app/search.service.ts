@@ -12,6 +12,9 @@ export class SearchService {
   private estilosource = new Subject<any>();
   public estilo$ = this.estilosource.asObservable();
 
+  private posicionsource = new Subject<any>();
+  public posicion$ = this.posicionsource.asObservable();
+
   controlador:any = 'verdadero';
 
   arrayContenido:any;
