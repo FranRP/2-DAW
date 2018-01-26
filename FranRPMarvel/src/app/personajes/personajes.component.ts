@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {SearchService} from '../search.service';
 import {slideToLeft} from '../router.animations';
+import {NavigationEnd, Router} from '@angular/router';
+
 
 declare var jquery: any;
 declare var $: any;
@@ -22,7 +24,7 @@ export class PersonajesComponent implements OnInit {
   activardown: boolean = true;
   variable: any;
 
-  constructor(public servicio: SearchService) {
+  constructor(public servicio: SearchService, private router: Router) {
   }
 
   ngOnInit() {
@@ -33,6 +35,21 @@ export class PersonajesComponent implements OnInit {
       }
     )
     this.servicio.setposicion('Characters');
+
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+
+      var scrollToTop = window.setInterval(function () {
+        var pos = window.pageYOffset;
+        if (pos > 0) {
+          window.scrollTo(0, pos - 20); // how far to scroll on each step
+        } else {
+          window.clearInterval(scrollToTop);
+        }
+      }, 16); // how fast to scroll (this equals roughly 60 fps)
+    });
   }
 
   mostrarinfo(event) {

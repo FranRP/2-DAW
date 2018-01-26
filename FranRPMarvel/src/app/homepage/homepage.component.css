@@ -4,13 +4,12 @@
 }
 
 img {
-  height: 400px;
+  max-height: 400px;
   width: 100%;
 }
 
-
 #consejo {
-  max-width:300px;
+  max-width: 300px;
   height: auto;
 }
 
@@ -26,7 +25,6 @@ img {
 p {
   font-family: "Forgotten Future";
 }
-
 
 .slidex {
   background-color: #3c3c3c;

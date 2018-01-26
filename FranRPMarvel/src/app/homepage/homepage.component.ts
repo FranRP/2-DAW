@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {routerTransition} from '../router.animations';
 import {SearchService} from '../search.service';
+import {NavigationEnd, Router} from '@angular/router';
 
 declare var jquery: any;
 declare var $: any;
@@ -14,7 +15,7 @@ declare var $: any;
 })
 export class HomepageComponent implements OnInit {
 
-  constructor(public servicio: SearchService) {
+  constructor(public servicio: SearchService, private router: Router) {
   }
 
   ngOnInit() {
@@ -28,6 +29,21 @@ export class HomepageComponent implements OnInit {
         showCursor: false,
       })
     })
+
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+
+      var scrollToTop = window.setInterval(function () {
+        var pos = window.pageYOffset;
+        if (pos > 0) {
+          window.scrollTo(0, pos - 20); // how far to scroll on each step
+        } else {
+          window.clearInterval(scrollToTop);
+        }
+      }, 16); // how fast to scroll (this equals roughly 60 fps)
+    });
 
     this.servicio.setposicion('');
   }

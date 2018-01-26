@@ -19,7 +19,7 @@ export class SearchService {
 
   arrayContenido: any;
 
-  constructor(private http: HttpClient, private http2: HttpClient, private http3: HttpClient) {
+  constructor(private http: HttpClient, private http2: HttpClient, private http3: HttpClient, private http4: HttpClient) {
   }
 
   peticion(elem, offset, iniciales = 'a', orden = 'name'): Observable<any> {
@@ -28,6 +28,11 @@ export class SearchService {
     }
     this.arrayContenido = this.http.get('https://gateway.marvel.com/v1/public/' + elem + '?apikey=c16ce023e325ddf234fedcfa8c240ab8&ts=9&nameStartsWith=' + iniciales + '&offset=' + offset + '&orderBy=' + orden + '&hash=544c93cc95c797fa8b665a6aa5a8a5e5');
     return this.arrayContenido;
+  }
+
+  peticionEventos(elem): Observable<any> {
+    let variable = this.http4.get('https://gateway.marvel.com/v1/public/' + elem + '?apikey=c16ce023e325ddf234fedcfa8c240ab8&limit=90&ts=9&hash=544c93cc95c797fa8b665a6aa5a8a5e5')
+    return variable;
   }
 
   pjindividual(elem, ident): Observable<any> {

@@ -1,4 +1,3 @@
-
 <div class="container-fluid">
   <div class="row titular">
     <div class="col-12"><img src="./assets/marvel2.png" class="img-fluid" alt="Responsive image"></div>
@@ -15,7 +14,7 @@
       </div>
     </div>
     <div class="col-9">
-      <h1>Filtra&nbsp;&nbsp;&nbsp; el&nbsp;&nbsp;&nbsp; listado&nbsp;&nbsp;&nbsp; de&nbsp;&nbsp;&nbsp; superheroes</h1>
+      <h1>Busca&nbsp;&nbsp;&nbsp; tu&nbsp;&nbsp;&nbsp; superheroe&nbsp;&nbsp;&nbsp; deseado</h1>
     </div>
   </div>
   <div class="row filtros">
@@ -31,7 +30,7 @@
       </select>
     </div>
     <div class="col-4">
-      <button id="filtro" type="button" name="button" (click)="filtro()"><h1>Aplicar</h1></button>
+      <button id="filtro" type="button" name="button" (click)="filtro()"><h1>Buscar</h1></button>
     </div>
   </div>
   <div class="row titulares">
@@ -50,17 +49,22 @@
     <div class="col-12 col-sm-6 col-md-3" *ngFor="let elemento of arrayContenido">
       <div class="personajes">
         <h2>{{elemento.name}}</h2>
-        <a (click)="mostrarinfo($event)" routerLinkActive="active" [routerLink]="['/pjinfo']"><img class="pj" id="{{elemento.id}}" src="{{elemento.thumbnail.path}}/portrait_xlarge.{{elemento.thumbnail.extension}}" alt=""></a>
+        <a (click)="mostrarinfo($event)" routerLinkActive="active" [routerLink]="['/pjinfo']"><img class="pj"
+                                                                                                   id="{{elemento.id}}"
+                                                                                                   src="{{elemento.thumbnail.path}}/portrait_xlarge.{{elemento.thumbnail.extension}}"
+                                                                                                   alt=""></a>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col-5 col-sm-4 col-md-3 botones">
-      <button type="button" (click)="anterior()" name="button" [disabled]='activardown'><span class="glyphicon glyphicon-backward"></span></button>
+      <button type="button" (click)="anterior()" name="button" [disabled]='activardown'><span
+        class="glyphicon glyphicon-backward"></span></button>
     </div>
     <div class="col-2 col-sm-4 col-md-6 clearfix"></div>
     <div class="col-5 col-sm-4 col-md-3 botones">
-      <button type="button" (click)="siguiente()" name="button" [disabled]='activarup'><span class="glyphicon glyphicon-forward"></span></button>
+      <button type="button" (click)="siguiente()" name="button" [disabled]='activarup'><span
+        class="glyphicon glyphicon-forward"></span></button>
     </div>
   </div>
 </div>

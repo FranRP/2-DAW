@@ -1,19 +1,43 @@
 .valores {
-  margin-bottom: 50px;
   border: 2px solid;
   background-color: rgb(94, 94, 94);
+}
+
+.separador {
+  margin-bottom: 50px;
+
 }
 
 h1 {
   font-size: 15px;
 }
 
-div{
+.informacion {
+  min-height: 500px;
+  margin-top: 40px;
+}
+
+div {
   text-align: center;
 }
 
 img {
   width: 100%;
+  max-height: 250px;
+}
+
+#titulico {
+  text-align: left;
+  font-family: 'Marvel';
+  font-size: 25px;
+}
+
+.separacion {
+  margin-bottom: 30px;
+}
+
+.titular {
+  background-color: black;
 }
 
 .info {
@@ -26,7 +50,7 @@ p {
   font-family: "Forgotten Future";
 }
 
-h4{
+h4 {
   color: #d71a00;
-  font-family:"marvel";
+  font-family: "marvel";
 }

@@ -6,7 +6,7 @@
 }
 
 img {
-  height: 250px;
+  max-height: 250px;
   width: 100%;
 }
 
@@ -27,7 +27,6 @@ h2 {
   font-size: 15px;
 }
 
-
 select {
   border: 0px;
 }
@@ -39,7 +38,7 @@ select {
 button {
   margin-top: 50px;
   border: 0px;
-  background-color: none;
+  background-color: inherit;
   background: none;
   font-size: 90px;
 }
