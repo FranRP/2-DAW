@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: peliculas.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: peliculas.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>var texto;
+var genero;
+
+
+//-------------------MODELO--------------------------
+
+/**
+ * Clase Modelo del MVC (Se encarga de manear y crear objetos películas).
+ * @constructor
+ * @param {string} id - Indica el ID de la película.
+ * @param {string} title - Indica el título de la película.
+ * @param {string} poster - Indica la imagen de la película.
+ * @param {int} year - Indica el año de la película.
+ */
+class Modelo {
+    constructor(id, title, poster, year) {
+        this.id = id;
+        this.title = title;
+        this.poster = poster;
+        this.year = year;
+    }
+}
+
+/**
+ * Clase Almacen de películas.
+ * @constructor
+ * @param {array} lista - Variable que almacena todas las películas (objetos) que recibe.
+ */
+class Almacen {
+    constructor() {
+        this.lista = [];
+    }
+
+    /**Este método guardará los objetos que recibe (objetos películas) en el almacén*/
+    guardar(objeto) {
+        this.lista.push(objeto);
+    }
+}
+
+//------------------CONTROLADOR-----------------------
+
+/**
+ * Clase Controlador del MVC (Maneja los datos actuando de intermediario entre vista y modelo).
+ * @constructor
+ * @param {object} almacen - Crea el objeto Almacen para poder llamar a sus métodos y usar sus parámetros.
+ * @param {object} vista - Crea el objeto Vista para poder llamar a sus métodos y usar sus parámetros.
+ */
+class Controlador {
+    constructor() {
+        self.almacen = new Almacen();
+        self.vista = new Vista();
+    }
+
+    /**Este método primero guarda el valor del input y comprueba su valor comparándolo con otra variable. Llamará al método loadDoc para pasar de página, buscar nuevas películas o realizar una nueva petición tras llegar al límite de scroll.*/
+    comprobador(pagina) {
+        var valor = $('input').val();
+        if (texto != valor) {
+            $('.pelis').empty();
+            contador = 2;
+            this.loadDoc(pagina);
+            texto = valor;
+        } else {
+            this.loadDoc(pagina);
+        }
+
+    }
+
+    /**Este método cambiará el género de búsqueda, ya que la API OMDB nos permite filtrar las búsquedas por películas, series y juegos. Llamará a loadDoc pasándole la página que recibe para realizar la búsqueda.*/
+    cambiogenero(pagina) {
+        var type = $('select').val();
+        if (genero != type) {
+            $('.pelis').empty();
+            contador = 2;
+            this.loadDoc(pagina);
+            genero = type;
+        } else {
+            this.loadDoc(pagina);
+        }
+    }
+
+    /**Método principal que se encarga de manejar el css de la página para maquetar los elementos que recibe
+     * la petición ajax que realiza. La petición controlará el género, tipo y página que el propio método
+     * recibe como parámetro. La petición por cada película, serie o juego que reciba, creará un objeto Modelo
+     * pasándole sus correspondientes parámetros como id, title, poster y año. Guardará en el almacén cada respuesta de la
+     * petición ajax y llamará a la vista para maquetar los resultados. loadDoc hará que comprobar pase a ser true y
+     * permitirá nuevas peticiones ajax junto con el scroll.*/
+    loadDoc(pagina) {
+        $('.carga').css('display', 'block');
+        $('.eleccion').empty();
+        $('.eleccion').css('display', 'none');
+        var valor = $('input').val();
+        let type = $('select').val();
+        let str = 'http://www.omdbapi.com/?s=' + valor + '&amp;apikey=9874a93c&amp;page=' + pagina;
+        console.log(str);
+        if (type !== 'general') str += '&amp;type=' + type;
+        $(document).ready(function () {
+            setTimeout(function () {
+                $.ajax({
+                    url: str,
+                    success: function (resp) {
+                        let variable = resp;
+                        let variable2 = variable['Search'];
+                        $('.error').empty();
+                        if (variable['Response'] != 'False') {
+                            for (var i = 0; i &lt; variable['Search'].length; i++) {
+                                var pelicula = new Modelo(variable2[i].imdbID, variable2[i].Title, variable2[i].Poster, variable2[i].Year);
+                                self.almacen.guardar(pelicula);
+                            }
+                            console.log(self.almacen.lista);
+                            self.vista.mostrar(self.almacen);
+                            comprobar = true;
+
+                        }
+                        $('.carga').css('display', 'none');
+                    }
+                });
+            }, 2000);
+        });
+    }
+
+    /**Este método es hermano de loadDoc, y se encarga de realizar petición que recibirá tan solo una respuesta en especial usando la id de la película que el
+     * método recibe como parámetro. Además, llamará al método youtube para realizar la petición a la api de youtube. */
+    loadDoc2(id) {
+        $(document).ready(function () {
+            $.ajax({
+                url: 'http://www.omdbapi.com/?i=' + id + '&amp;apikey=9874a93c&amp;plot=full',
+                success: function (resp) {
+                    let variable = resp;
+                    cont.youtube(variable);
+                }
+            });
+        });
+    }
+
+    /**Este método maneja la petición ajax sobre la api de youtube. Recibe como parámetro el título de la película que deberá de buscar, y llama al método de vista encargada de maqueta el video de youtube.*/
+    youtube(titulo) {
+        let objeto = titulo;
+        let variable = 'Trailer oficial ' + titulo[informacion[0]];
+        console.log(variable);
+        $(document).ready(function () {
+            $.ajax({
+                url: 'https://www.googleapis.com/youtube/v3/search?order=date&amp;part=snippet&amp;maxResults=1&amp;order=viewCount&amp;type=video&amp;q=' + variable + '&amp;key=AIzaSyAY1AFsbeCgoOQwPo6lC7VcQEykZTJPYYU',
+                success: function (resp) {
+                    let prueba = resp;
+                    let video = prueba.items[0].id.videoId;
+                    console.log(video);
+                    $('eleccion').empty();
+                    self.vista.elegida(objeto, video);
+                }
+            });
+        });
+    }
+
+
+}
+
+
+//---------------------VISTA---------------------------
+
+/**
+ * Clase Vista del MVC (Maqueta los datos que recibe desde el controlador).
+ * @constructor
+ */
+class Vista {
+    /**El método mostrar se encarga de por cada objeto que contiene la lista del parámetro que recibe (el almacén), maquetarlo en la página activando y desactivando los bloques para una maquetación acorde y correcta, indicando id, imagen, titulo y año.*/
+    mostrar(objeto) {
+        console.log(objeto);
+        for (var i = 0; i &lt; objeto.lista.length; i++) {
+            if (objeto.lista[i].poster == "N/A") {
+                objeto.lista[i].poster = "css/imagen.jpg";
+            }
+            $('.pelis').append('&lt;div id="' + objeto.lista[i].id + '">&lt;img src="' + objeto.lista[i].poster + '">&lt;h2>' + objeto.lista[i].title + ' - ' + objeto.lista[i].year + '&lt;/h2>&lt;/div>');
+        }
+        $('.carga').css('display', 'none');
+        $(".pelis div").click(function () {
+            $('.eleccion').empty();
+            cont.loadDoc2($(this).attr("id"));
+            $('.eleccion').css('display', 'block');
+            $('.eleccion').css('min-height', '418.19px');
+            $('.eleccion').append("&lt;img id='cargando' src='carga.gif' alt=''>");
+
+            $('.carga-eleccion').css('display', 'block');
+            $("html, body").animate({
+                scrollTop: 0
+            }, 600);
+        });
+        objeto.lista = [];
+    }
+
+    /**Este método maquetará la película individual que nosotros seleccionamos al hacer click en cualquiera de las películas que se maquetan en la página indicando además de los parámetros que ya se veían anteriormente, su descripción y otros datos relacionados con la película, juego o serie, incluyendo el vídeo de youtube que recibe de la api y el método que maneja el controlador.*/
+    elegida(objeto, video) {
+        $('.eleccion').empty();
+        $('.eleccion').css('display', 'flex');
+        $('.eleccion').append('&lt;img src="' + objeto.Poster + '">&lt;div class="info">&lt;table>&lt;/table>&lt;/div>');
+        for (var i = 0; i &lt; informacion.length; i++) {
+            $('.info table').append('&lt;tr>&lt;td>' + informacion[i] + ':&lt;/td>&lt;td>' + objeto[informacion[i]] + '&lt;/td>&lt;/tr>');
+        }
+        $('.info table').append('&lt;/table>');
+        $('td:nth-child(1)').css('color', '#00bdd0');
+        $('td:nth-child(1)').css('font-weight', 'bold');
+        $('td:nth-child(2)').css('color', '#4e4e4e');
+        $('td:nth-child(2)').css('padding-left', '20px');
+        $('.eleccion').append('&lt;div class="video">&lt;h2>Ver trailer oficial&lt;/h2>&lt;/div>');
+        $(".video").click(function () {
+            $('#contenedor').show();
+            $('#flotante').animate({
+                marginTop: "-152px"
+            });
+            $('.trailer').prepend('&lt;iframe type="text/html" width="100%" height="400" src="http://www.youtube.com/embed/' + video + '" frameborder="0">&lt;/iframe>');
+        });
+        $('#flotante h3 a').click(function () {
+            $('#flotante').animate({
+                marginTop: "-756px"
+            });
+
+            setTimeout(function () {
+                $('#contenedor').hide();
+                $('.trailer').empty();
+            }, 500)
+        });
+    }
+}
+
+
+var informacion = ['Title', 'Year', 'Runtime', 'Actors', 'Genre', 'Plot'];
+
+var cont = new Controlador();
+var contador = 2;
+var comprobar = false;
+
+
+$(document).ready(function () {
+    var win = $(window);
+    win.scroll(function () {
+        if ($(document).height() - win.height() == win.scrollTop()) {
+            if (comprobar == true) {
+                cont.loadDoc(contador);
+                contador += 1;
+                comprobar = false;
+            }
+
+        }
+    });
+});
+
+
+/**Esto se encarga de manejar el exceso de peticiones ajax. Cada vez que se hace scroll y se llega al límite inferior,
+ * llamará al método loadDoc, el cual hará peticiones ajax y llamará a la vista para que maquete los resultados, sin embargo,
+ * para evitar que se sobrecargue de peticiones ajax al hacer exceso de scroll, usará una variable "comprobar", que siendo false
+ * impedirá nuevas peticiones, y se volverá true tras terminar la petición que realiza loadDoc.*/
+function manejarScroll() {
+    $(document).ready(function () {
+        var win = $(window);
+        win.scroll(function () {
+            if ($(document).height() - win.height() == win.scrollTop()) {
+                if (comprobar == true) {
+                    cont.loadDoc(contador);
+                    contador += 1;
+                    comprobar = false;
+                }
+
+            }
+        });
+    });
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Almacen.html">Almacen</a></li><li><a href="Controlador.html">Controlador</a></li><li><a href="Modelo.html">Modelo</a></li><li><a href="Vista.html">Vista</a></li></ul><h3>Global</h3><ul><li><a href="global.html#manejarScroll">manejarScroll</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Feb 25 2018 18:38:44 GMT+0100 (Hora estándar romance)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
