@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pong.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pong.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>document.addEventListener("keydown", movimientos, false);
+
+/** Esta función apartada se encarga de captar los movimientos de teclado siendo x = 38 la flecha hacia abajo, x == 40, arriba, x == 87, la w y 83 la s. */
+function movimientos(evt) {
+    let x = evt.keyCode;
+    if (x == 38) {
+        p.moverpala('abajo');
+    } else if (x == 40) {
+        p.moverpala('arriba');
+    } else if (x == 87) {
+        p.moverpala('arribaiz');
+    } else if (x == 83) {
+        p.moverpala('abajoiz');
+    }
+}
+
+var palaxder;
+var palayder;
+var palaxiz;
+var palayiz;
+var posicionx;
+var posiciony;
+var palader;
+var palaiz;
+var paladerecha = document.getElementById('derecha');
+var palaizquierda = document.getElementById('izquierda');
+
+/**
+ * Esto genera la partida.
+ * @constructor
+ * @param {object} equipoazul - Equipo de color azul.
+ * @param {object} equiporojo - Equipo de color rojo.
+ * @param {int} contadorR - Marcador del equipo rojo.
+ * @param {int} contadorA - Marcador del equipo azul.
+ */
+
+class Partida {
+    constructor() {
+        this.equipoazul = document.getElementById('azul');
+        this.equiporojo = document.getElementById('rojo');
+        this.contadorR = 1;
+        this.contadorA = 1;
+    }
+
+    /** Este método modifica el score de los equipos cuando marquen un punto. Es llamado por otro método con un parámetro para saber a que equipo añadir el punto */
+    modificarScore(equipo) {
+        if (equipo == 'rojo') {
+            this.equiporojo.innerHTML = 'Puntuación equipo rojo: ' + this.contadorR++;
+        } else {
+            this.equipoazul.innerHTML = 'Puntuación equipo azul: ' + this.contadorA++;
+        }
+    }
+
+    /** Este método maneja el movimiento de la pala derecha controlando los eventos del teclado en base a un parámetro que le pasa otro método e indica que pala y en que dirección debe moverse. */
+    moverDerecha(estado) {
+        palader = parseInt(paladerecha.getAttribute('y'));
+        console.log(palader);
+        if (estado == 'abajo') {
+            if (palader >= 15) {
+                paladerecha.setAttribute('y', palader - 15);
+            }
+        } else if (estado == 'arriba') {
+            if (palader &lt;= 355) {
+                paladerecha.setAttribute('y', palader + 15)
+            }
+        }
+    }
+
+    /** Este método maneja el movimiento de la pala izquierda controlando los eventos del teclado en base a un parámetro que le pasa otro método e indica que pala y en que dirección debe moverse. */
+    moverIzquierda(estado) {
+        palaiz = parseInt(palaizquierda.getAttribute('y'));
+        console.log(palaiz);
+        if (estado == 'arribaiz') {
+            if (palaiz >= 15) {
+                palaizquierda.setAttribute('y', palaiz - 15);
+            }
+        } else if (estado == 'abajoiz') {
+            if (palaiz &lt;= 355) {
+                palaizquierda.setAttribute('y', palaiz + 15)
+            }
+        }
+    }
+}
+
+/**
+ * Esta clase maneja el movimiento de la pelota de pong.
+ * @constructor
+ * @param (class) super - Representa la clase padre Partida.
+ * @param {object} golaso - Recibe y guarda el objeto goal, el cual contiene un gif.
+ * @param {object} x - Recibe y guarda el objeto myAudio, el cual contiene un audio.
+ * @param {object} circulo - SVG de la pelota.
+ * @param {int} pasoy - Movimiento en el eje y de la pelota.
+ * @param {int} pasox - Movimiento en el eje x de la pelota.
+ */
+
+class Pelota extends Partida {
+    constructor() {
+        super();
+        this.evento;
+        this.x;
+        this.pasox = -2;
+        this.pasoy = 2;
+        this.circulo;
+        this.golaso = document.getElementById('goal');
+        this.x = document.getElementById("myAudio");
+
+    }
+
+    /** Este método llama a moverDerecha o moverIzquierda de la clase padre partida, indicándole que pala debe moverse y en que dirección dependiendo de los eventos de teclado. */
+    moverpala(valor) {
+        if (valor == 'abajo') {
+            p.moverDerecha('abajo');
+        } else if (valor == 'arriba') {
+            p.moverDerecha('arriba');
+        } else if (valor == 'arribaiz') {
+            p.moverIzquierda('arribaiz');
+        } else if (valor == 'abajoiz') {
+            p.moverIzquierda('abajoiz');
+        }
+    }
+
+    /** El método tomarCirculo recibe y guarda el objeto svg pelota en una variable de la clase. */
+    tomarCirculo() {
+        this.circulo = document.getElementById('blackcircle');
+        console.log(this.circulo);
+    }
+
+
+    /** Centrar se encarga de colocar la pelota en una posición centrál, dándole una posición positiva o negativa para ver hacia que lado se moverá al inciar el juego. Siempre irá al lado contrario de quien ha marcado un gol. */
+    centrar(parametro) {
+        this.circulo.setAttribute('cx', 462);
+        if (parametro == 'positivo') {
+            this.pasox = 3;
+        } else {
+            this.pasox = -3;
+
+        }
+    }
+
+    /** Este método se encargará de aumentar la velocidad de la pelota cada vez que rebote en una pala. */
+    fasttofurious(parametro) {
+        if (parametro == 'positivo') {
+            this.pasox += 0.45;
+        } else {
+            this.pasox -= 0.45;
+
+        }
+
+    }
+
+    /** Este método modifica los atributos cx y cy de la pelota cuando dicho método es llamado y utilizará this.pasox y this.pasoy, los cuales son modificados por el método de movimiento. */
+    movimiento() {
+        this.circulo.setAttribute('cx', posicionx + this.pasox);
+        this.circulo.setAttribute('cy', posiciony + this.pasoy);
+    }
+
+    /** Hace visible el gif del gol cuando cualquiera de los jugadores marca un gol y además activa el audio. Ambos se detendrán llamando al método ocultar tras 1 segundo con 8. */
+    mostrar() {
+        this.golaso.style.visibility = "visible";
+        this.x.play();
+        this.golaso.style.animationPlayState = "running";
+        setTimeout(p.ocultar, 1800);
+    }
+
+    /** Oculta el gif del gol cuando mostrar lo llama tras 1 segundo con 8 modificando sus atributos de visibilidad pausando también el audio. */
+    ocultar() {
+        this.golaso = document.getElementById('goal');
+        this.golaso.style.visibility = "hidden";
+        this.golaso.style.animationPlayState = "paused";
+    }
+
+    /** Controla las colisiones de las palas con la pelota. Cuando detecte una colisión modificará la variable de la clase pasox o pasoy multiplicándolas por -1. Se multiplicará una variable u otra dependiendo de la posición en la que colisione, teniendo en cuenta que puede hacerlo desde la mitad de la pala hacia arriba, o hacia abajo, debiendo cambiar así la dirección de ambos ejes o no. Se llamará al método movimiento y fasttoforiuous para aumentar la velocidad de la pelota también. En caso de gol, modificará los scores, centrará la pelota dándole una dirección de movimiento dependiendo de quien haya marcado y activará el gif y audio de gol. */
+    colisiones() {
+        palaxder = parseInt(paladerecha.getAttribute('x'));
+        palayder = parseInt(paladerecha.getAttribute('y'));
+        palaxiz = parseInt(palaizquierda.getAttribute('x'));
+        palayiz = parseInt(palaizquierda.getAttribute('y'));
+        posicionx = parseInt(this.circulo.getAttribute('cx'));
+        posiciony = parseInt(this.circulo.getAttribute('cy'));
+        if ((posicionx &lt; 925) &amp;&amp; (posiciony &lt; 450)) {
+            p.movimiento();
+        }
+        if ((palaxiz - posicionx >= -40) &amp;&amp; ((posiciony >= palayiz - 30) &amp;&amp; (posiciony &lt;= palayiz + 130))) {
+            this.pasox *= -1;
+            p.movimiento();
+            p.fasttofurious('positivo');
+        }
+        if ((palaxder - posicionx &lt;= 25) &amp;&amp; ((posiciony >= palayder - 30) &amp;&amp; (posiciony &lt;= palayder + 130))) {
+            this.pasox *= -1;
+            p.movimiento();
+            p.fasttofurious('negativo');
+        }
+        if ((posiciony &lt;= 20) || (posiciony >= 450)) {
+            this.pasoy *= -1;
+            p.movimiento();
+        }
+        if ((posicionx >= 925) || (posicionx &lt;= 20)) {
+            this.pasox *= -1;
+            p.movimiento();
+            if (posicionx >= 925) {
+                p.modificarScore('rojo');
+                p.centrar('positivo');
+                p.mostrar();
+            } else if (posicionx &lt;= 20) {
+                p.modificarScore('azul');
+                p.centrar('negativo');
+                p.mostrar();
+            }
+        }
+    }
+}
+
+p = new Pelota();
+console.log(palaizquierda.x);
+p.tomarCirculo();
+var FPS = 60;
+setInterval(function () {
+    p.colisiones();
+}, 1000 / FPS);</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Partida.html">Partida</a></li><li><a href="Pelota.html">Pelota</a></li></ul><h3>Global</h3><ul><li><a href="global.html#movimientos">movimientos</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Feb 25 2018 17:49:17 GMT+0100 (Hora estándar romance)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
